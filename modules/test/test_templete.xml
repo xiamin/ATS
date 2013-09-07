@@ -1,0 +1,24 @@
+
+<TEST_TEMPLETE>
+	<!--网络测试-->
+	<TEST_POINT>
+		<name>NetWork</name>
+		<input_data>
+			<param></first>
+			<param></second>
+			<param></third>
+		</input_data>
+		<output_data>
+			<return></return>
+		</output_data>
+	</TEST_POINT>
+	
+	<!--实时流播放测试-->
+	<TEST_POINT>
+	</TEST_POINT>
+	
+	<!--画面清晰度测试-->
+	<TEST_POINT>
+	</TEST_POINT>
+	
+</TEST_TEMPLETE>
