@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CAT>
-	<MODULE>
-		<TEST>
-		</TEST>
-		<REPORT>
-		</REPORT>
-		<ERP>
-		</ERP>
-		<GUI>
-		</GUI>
-	</MODULE>
+	<module>
+		<!--测试模块-->
+		<name>test</name>
+		<state>on</state>
+		<test_templete>/etc/cat/test_templete.xml</test_templete>
+	</module>
+	
+	<module>
+		<!--报告模块-->
+		<name>report</name>
+		<state>on</state>
+		<output>STDOUT</output>
+	</module>
+	
+	<module>
+		<!--ERP模块-->
+		<name>erp</name>
+		<state>off</state>
+	</module>
+
+	<module>
+		<!--GUI模块-->
+		<name>gui</name>
+		<state>off</state>
+	</module>
 </CAT>

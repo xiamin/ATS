@@ -10,6 +10,8 @@
 
 #include "osa.h"
 
+#undef NDEBUG
+
 enum
 {
     CAT_LOG_FATAL,
