@@ -10,13 +10,13 @@
 
 #include "osa.h"
 
-typedef struct _CAT_ERP_INTERFACE
+struct _CAT_ERP_INTERFACE
 {
     osa_uint8_t     (*init)();              // 初始化ERP
     void            (*exit)();              // 退出ERP
     osa_uint8_t     (*connect)();           // 连接ERP系统
     osa_uint8_t     (*disconnect)();        // 断开ERP系统
-}CAT_Erp;
+};
 
 
 

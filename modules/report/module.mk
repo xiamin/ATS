@@ -2,10 +2,10 @@
 
 LOCAL_PATH             :=$(call my-dir)
 
-LOCAL_MODULE           :=libtest
+LOCAL_MODULE           :=libreport
 LOCAL_MODULE_OWNER     :=
 
-LOCAL_SRC_FILES        :=test.c
+LOCAL_SRC_FILES        :=report.c
 
 #LOCAL_CORSS_COMPILE   :=
 #LOCAL_AR              :=$(LOCAL_CROSS_COMPILE)ar
@@ -20,7 +20,7 @@ LOCAL_LIBRARY_DIRS     :=
 LOCAL_EXPORT_HEADER_TO	 :=
 LOCAL_EXPORT_HEADER_DIRS :=
 
-LOCAL_STATIC_LIBRARIES :=liblog
+LOCAL_STATIC_LIBRARIES :=
 LOCAL_SHARED_LIBRARIES :=
 
 LOCAL_ARLIBS           :=

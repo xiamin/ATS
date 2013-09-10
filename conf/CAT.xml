@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CAT>
-	<module>
+	<module name="test">
 		<!--测试模块-->
-		<name>test</name>
 		<state>on</state>
 		<test_templete>/etc/cat/test_templete.xml</test_templete>
 	</module>
 	
-	<module>
+	<module name="report">
 		<!--报告模块-->
-		<name>report</name>
 		<state>on</state>
 		<output>STDOUT</output>
 	</module>
 	
-	<module>
+	<module name="erp">
 		<!--ERP模块-->
-		<name>erp</name>
 		<state>off</state>
 	</module>
 
-	<module>
+	<module name="gui">
 		<!--GUI模块-->
-		<name>gui</name>
 		<state>off</state>
+	</module>
+	
+	<module name="log">
+		<!--日志-->
+		<state>on</state>
+        <!--0: fatal, 1: error, 2: warn, 3:info, 4:debug-->
+        <level>3</level>
+		<file>/tmp/cat.log</file>
 	</module>
 </CAT>

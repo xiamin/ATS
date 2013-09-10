@@ -21,10 +21,8 @@ typedef struct _CAT_TEST_INTERFACE
     void            (*stop)();                  // 停止测试
 }CAT_Test;
 
-osa_uint8_t CAT_TestInit();
-void        CAT_TestExit();
-osa_uint8_t CAT_TestStart();
-void        CAT_TestStop();
 
+osa_err_t   CAT_TestModuleInit();
+void        CAT_TestModuleExit();
 
 #endif /* CAT_TEST_H_ */

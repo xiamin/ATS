@@ -9,9 +9,6 @@ ifneq (xTRUE, x$(strip $(DISABLE_DEBUG)))
 include $(BUILD_SYSTEM_TOP_DIR)/query.mk
 endif
 
-# save task list to file
-#all_tasks:=$(call list-get-build-task)
-#$(shell echo $(all_tasks) >$(PROJECT_OUT)/tasks.list)
 
 
 # if build all module, save the header information exported before

@@ -8,162 +8,46 @@
 
 #include "osa.h"
 #include "conf.h"
-#include "conf_cmd.h"
+#include "conf_data.h"
+#include "module.h"
 
-CAT_Conf    conf;
+static CAT_Conf    s_conf = {0};
 
 
-CAT_ModuleConf *CAT_ModuleConfFind(const char *name)
+CAT_Conf   *CAT_ConfInit(const char *file)
 {
-    OSA_ASSERT(name != OSA_NULL);
+    OSA_ASSERT(file != NULL);
     
-    CAT_ModuleConf    *p = NULL;
-    osa_uint32_t     i;
+    strncpy(s_conf.file, file, OSA_NAME_MAX-1);
+    s_conf.mcf = NULL;
     
-    for (i=0; i<CAT_MODULE_MAX; i++)
-    {
-        // 找到了
-        if (!strcmp(conf.mc[i]->name, name))
-        {
-            p = conf.mc[i];
-            break;
-        }
-    }
-
-    return p;
+    return &s_conf;
 }
 
-osa_err_t   CAT_ModuleConfRegister(CAT_ModuleConf *cmf)
+void    CAT_ConfExit(CAT_Conf *self)
 {
-    CAT_ModuleConf  *p = NULL;
-    
-    // 如果找到模块，则替换，否则新建
-    if ((p = CAT_ModuleConfFind(cmf->name)) != NULL)
+    s_conf.mcf = NULL;
+}
+
+void    CAT_ConfSetModuleConf(CAT_Conf *self, CAT_Module *m)
+{
+    self->mcf = &m->cf;
+}
+
+
+osa_err_t   CAT_ConfRead(CAT_Conf *self, void *out_data)
+{
+    if (self->mcf->read)
     {
-        CAT_LogInfo("Replace module: %s\n", cmf->name);
-        p = cmf;
-        
-        return OSA_ERR_OK;
-    }
-    else
-    {
-        CAT_LogInfo("New module :%s\n", cmf->name);
-        
-        osa_uint32_t    i;
-        
-        for (i=0; i<CAT_MODULE_MAX; i++)
-        {
-            // 找到空位
-            if (!conf.mc[i])
-            {
-                conf.mc[i] = cmf;
-                break;
-            }
-        }
-        
-        if (i == CAT_MODULE_MAX)
-        {
-            CAT_LogInfo("No module space :%s\n", cmf->name);
-            
-            return OSA_ERR_ERR;
-        }
-        
-        return OSA_ERR_OK;
+        return self->mcf->read(self, out_data);
     }
 }
 
 
-void    CAT_ModuleConfUnregister(CAT_ModuleConf *cmf)
+osa_err_t   CAT_ConfWrite(CAT_Conf *self, void *data)
 {
-    CAT_ModuleConf  *p = NULL;
-    
-    if ((p = CAT_ModuleConfFind(cmf->name) != NULL)
+    if (self->mcf->write)
     {
-        *p = NULL;
+        return self->mcf->write(self, data);
     }
-}
-
-
-osa_err_t   CAT_ConfOpen(CAT_Conf *self, const char *file)
-{
-    OSA_ASSERT(file != OSA_NULL);
-
-    osa_err_t   err;
-
-    err = osa_file_open(&self->file, file, OSA_FMODE_RDWR);
-    if (err != OSA_ERR_OK)
-    {
-        CAT_LogError("Failed to open configuration file : %s\n", file);
-        return OSA_ERR_ERR;
-    }
-
-    return OSA_ERR_OK;
-}
-
-
-void    CAT_ConfClose(CAT_Conf *self)
-{
-    osa_file_close(&self->file);
-}
-
-
-osa_err_t   CAT_ConfGet(CAT_Conf *self, osa_uint32_t cmd, void *out_data)
-{
-    CAT_ModuleConf  *p = NULL;
-    
-    if (cmd >= CMD_TEST_MIN && cmd <CMD_TEST_MAX)
-    {
-        p = CAT_ModuleConfFind(TEST_MODULE_NAME);
-    }
-    else if (cmd >= CMD_REPORT_MIN && cmd < CMD_REPORT_MAX)
-    {
-        p = CAT_ModuleConfFind(REPORT_MODULE_NAME);
-    }
-    else if (cmd >= CMD_ERP_MIN && cmd < CMD_ERP_MAX)
-    {
-        p = CAT_ModuleConfFind(ERP_MODULE_NAME);
-    }
-    else if (cmd >= CMD_GUI_MIN && cmd < CMD_GUI_MAX)
-    {
-        p = CAT_ModuleConfFind(GUI_MODULE_NAME);
-    }
-    else
-    {
-        CAT_LogError("Unknown command : %d\n", cmd);
-        
-        return OSA_ERR_ERR;
-    }
-    
-    return p->get(self, cmd, out_data);
-}
-
-
-osa_err_t   CAT_ConfSet(CAT_Conf *self, osa_uint32_t cmd, void *data)
-{
-    CAT_ModuleConf  *p = NULL;
-    
-    if (cmd >= CMD_TEST_MIN && cmd <CMD_TEST_MAX)
-    {
-        p = CAT_ModuleConfFind(TEST_MODULE_NAME);
-    }
-    else if (cmd >= CMD_REPORT_MIN && cmd < CMD_REPORT_MAX)
-    {
-        p = CAT_ModuleConfFind(REPORT_MODULE_NAME);
-    }
-    else if (cmd >= CMD_ERP_MIN && cmd < CMD_ERP_MAX)
-    {
-        p = CAT_ModuleConfFind(ERP_MODULE_NAME);
-    }
-    else if (cmd >= CMD_GUI_MIN && cmd < CMD_GUI_MAX)
-    {
-        p = CAT_ModuleConfFind(GUI_MODULE_NAME);
-    }
-    else
-    {
-        CAT_LogError("Unknown command : %d\n", cmd);
-        
-        return OSA_ERR_ERR;
-    }
-    
-    return p->set(self, cmd, data);
 }
