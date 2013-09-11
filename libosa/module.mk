@@ -35,7 +35,7 @@ LOCAL_STATIC_LIBRARIES :=
 LOCAL_SHARED_LIBRARIES :=
 
 LOCAL_ARLIBS           :=
-LOCAL_LDLIBS           :=
+LOCAL_LDLIBS           :=ldl
 
 LOCAL_CFLAGS           :=
 LOCAL_CXXFLAGS         :=

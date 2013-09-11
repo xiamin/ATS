@@ -29,8 +29,10 @@ LOCAL_ARLIBS           :=
 LOCAL_LDLIBS           :=
 
 		
-gtk_cflags:=-D_REENTRANT -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12  
-LOCAL_CFLAGS           :=-DTIXML_USE_STL  $(gtk_cflags)
+#gtk_cflags:=-D_REENTRANT -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12  
+
+gtk_cflags:=`pkg-config --cflags gtk+-2.0`
+LOCAL_CFLAGS           :=$(gtk_cflags)
 LOCAL_CXXFLAGS         :=
 LOCAL_LDFLAGS          :=
 

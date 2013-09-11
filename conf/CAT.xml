@@ -19,7 +19,7 @@
 
 	<module name="gui">
 		<!--GUI模块-->
-		<state>off</state>
+		<state>on</state>
 	</module>
 	
 	<module name="log">

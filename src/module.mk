@@ -24,32 +24,14 @@ LOCAL_STATIC_LIBRARIES :=libtest libtinyxml libgui libreport libosa
 LOCAL_SHARED_LIBRARIES :=
 
 LOCAL_ARLIBS           :=
+LOCAL_LDLIBS           :=ldl
 
-gtk_libs:=lpthread \
-        lgtk-x11-2.0 \
-        lgdk-x11-2.0 \
-        latk-1.0 \
-        lgio-2.0 \
-        lpangoft2-1.0 \
-        lgdk_pixbuf-2.0 \
-        lm \
-        lpangocairo-1.0 \
-        lcairo \
-        lpango-1.0 \
-        lfreetype \
-        lfontconfig \
-        lgobject-2.0 \
-        lgmodule-2.0 \
-        lgthread-2.0 \
-        lrt \
-        lglib-2.0
-		
-
-LOCAL_LDLIBS           :=$(gtk_libs)
-
-LOCAL_CFLAGS           :=-fno-builtin
+LOCAL_CFLAGS           :=-fno-builtin -DCAT_CONFIG_FILE=\"$(PROJECT_TOP_DIR)/conf/CAT.xml\"
 LOCAL_CXXFLAGS         :=
-LOCAL_LDFLAGS          :=
+
+gtk_ldflags:=`pkg-config --libs gtk+-2.0`
+
+LOCAL_LDFLAGS          :=$(gtk_ldflags)
 
 include $(BUILD_HOST_EXECUTABLE)
 #include $(BUILD_HOST_STATIC_LIBRARY)

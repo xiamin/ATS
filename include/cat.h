@@ -8,7 +8,9 @@
 #ifndef CAT_H_
 #define CAT_H_
 
+#ifndef CAT_CONFIG_FILE
 #define CAT_CONFIG_FILE     "/etc/cat/CAT.xml"
+#endif
 
 
 typedef struct _CAT_MODULE_CONF     CAT_ModuleConf;
