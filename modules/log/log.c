@@ -14,6 +14,10 @@
 #include "log.h"
 #include "log.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 static osa_err_t   logConfRead(CAT_Conf *cf, void *out_data); 
 static osa_err_t   logConfWrite(CAT_Conf *cf, void *data); 
 static osa_err_t   logModuleEntry(CAT_Conf *cf, int argc, char **argv);
@@ -139,3 +143,8 @@ void CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...)
     
     va_end(ap);
 }
+
+
+#ifdef __cplusplus
+}
+#endif

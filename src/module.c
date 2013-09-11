@@ -11,7 +11,7 @@
 #include "log.h"
 
 // 模块容器
-CAT_Module  *mBox[CAT_MODULE_MAX] = {0};
+CAT_Module  *mBox[CAT_MODULE_MAX] = {NULL};
 
 
 CAT_Module *CAT_ModuleFind(const char *name)
@@ -97,13 +97,19 @@ osa_err_t CAT_ModuleUnregister(CAT_Module *module)
 void    CAT_ModuleInitAll(int argc, char **argv)
 {
     osa_uint32_t i;
+    osa_err_t   err;
     
     for (i=0; i<CAT_MODULE_MAX; i++)
     {
-        if (mBox[i]->entry)
+        if (mBox[i] && mBox[i]->entry)
         {
             CAT_LogInfo("Initialize module: %s\n", mBox[i]->name);
-            mBox[i]->entry(g_conf, argc, argv);
+  
+            err = mBox[i]->entry(g_conf, argc, argv);
+            if (err != OSA_ERR_OK)
+            {
+                CAT_LogError("Failed to initialize module : %s\n", mBox[i]->name);
+            }
         }
     }
 }

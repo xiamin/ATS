@@ -1,6 +1,6 @@
 ### module.mk
 
-LOCAL_PATH             :=$(call my-dir)
+LOCAL_PATH             :=$(call MyDir)
 
 LOCAL_MODULE           :=libreport
 LOCAL_MODULE_OWNER     :=
@@ -26,7 +26,7 @@ LOCAL_SHARED_LIBRARIES :=
 LOCAL_ARLIBS           :=
 LOCAL_LDLIBS           :=
 
-LOCAL_CFLAGS           :=-DTIXML_USE_STL
+LOCAL_CFLAGS           :=
 LOCAL_CXXFLAGS         :=
 LOCAL_LDFLAGS          :=
 

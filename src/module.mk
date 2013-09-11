@@ -1,11 +1,11 @@
 ### module.mk
 
-LOCAL_PATH             :=$(call my-dir)
+LOCAL_PATH             :=$(call MyDir)
 
-LOCAL_MODULE           :=libsrc
+LOCAL_MODULE           :=main
 LOCAL_MODULE_OWNER     :=
 
-LOCAL_SRC_FILES        :=conf.c module.c conf_xml.cpp
+LOCAL_SRC_FILES        :=conf.c module.c conf_xml.cpp cat_main.c
 
 #LOCAL_CORSS_COMPILE   :=
 #LOCAL_AR              :=$(LOCAL_CROSS_COMPILE)ar
@@ -20,31 +20,10 @@ LOCAL_LIBRARY_DIRS     :=
 LOCAL_EXPORT_HEADER_TO	 :=
 LOCAL_EXPORT_HEADER_DIRS :=
 
-LOCAL_STATIC_LIBRARIES :=
-LOCAL_SHARED    _LIBRARIES :=
+LOCAL_STATIC_LIBRARIES :=libtest libtinyxml libgui libreport libosa
+LOCAL_SHARED_LIBRARIES :=
 
 LOCAL_ARLIBS           :=
-LOCAL_LDLIBS           :=
-
-LOCAL_CFLAGS           :=-fno-builtin -DTIXML_USE_STL
-LOCAL_CXXFLAGS         :=
-LOCAL_LDFLAGS          :=
-
-#include $(BUILD_HOST_EXECUTABLE)
-include $(BUILD_HOST_STATIC_LIBRARY)
-#include $(BUILD_HOST_SHARED_LIBRARY)
-
-#include $(BUILD_TARGET_EXECUTABLE)
-#include $(BUILD_TARGET_STATIC_LIBRARY)
-#include $(BUILD_TARGET_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-
-LOCAL_MODULE           :=main
-LOCAL_MODULE_OWNER     :=
-
-LOCAL_SRC_FILES        :=cat_main.c
-LOCAL_INCLUDE_DIRS     :=$(PROJECT_TOP_DIR)/include osa_include
 
 gtk_libs:=lpthread \
         lgtk-x11-2.0 \
@@ -64,8 +43,14 @@ gtk_libs:=lpthread \
         lgthread-2.0 \
         lrt \
         lglib-2.0
+		
 
-LOCAL_LDLIBS:=$(gtk_libs)
-LOCAL_STATIC_LIBRARIES :=liblog libtest libtinyxml libgui libsrc libreport
+LOCAL_LDLIBS           :=$(gtk_libs)
+
+LOCAL_CFLAGS           :=-fno-builtin
+LOCAL_CXXFLAGS         :=
+LOCAL_LDFLAGS          :=
 
 include $(BUILD_HOST_EXECUTABLE)
+#include $(BUILD_HOST_STATIC_LIBRARY)
+#include $(BUILD_HOST_SHARED_LIBRARY)

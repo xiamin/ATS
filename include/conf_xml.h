@@ -16,9 +16,8 @@
 extern "C" {
 #endif
 
-#include "tinyxml.h"
 
-TiXmlElement *XML_GetModuleRoot(TiXmlElement *root, char *name);
+void *XML_GetModuleRoot(void *root, char *name);
 
 void XML_TestModuleRead(CAT_Conf *cf, CONF_Test *out_data);
 void XML_GuiModuleRead(CAT_Conf *cf, CONF_Gui *out_data);

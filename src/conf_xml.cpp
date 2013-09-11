@@ -6,14 +6,15 @@
  */
 
 
+#include "conf_xml.h"
+#include "tinyxml.h"
+#include "log.h"
+#include "module.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "conf_xml.h"
-
-TiXmlElement *XML_ReportModuleRoot(TiXmlElement *root);
 
 void XML_ReportModuleRead(CAT_Conf *cf, CONF_Report *out_data)
 {
@@ -38,14 +39,14 @@ void XML_ReportModuleRead(CAT_Conf *cf, CONF_Report *out_data)
         goto err;
     }
 
-    moduleRoot = XML_GetModuleRoot(root, "report");
+    moduleRoot = (TiXmlElement *)XML_GetModuleRoot((void *)root, "report");
     if (NULL == moduleRoot)
     {
-        CAT_LogError("Failed to get module root : test\n");
+        CAT_LogError("Failed to get module root : report\n");
         goto err;
     }
 
-    strncpy(out_data->name, "test", OSA_NAME_MAX-1);
+    strncpy(out_data->name, "report", OSA_NAME_MAX-1);
 
     node = moduleRoot->FirstChildElement("state");
     if (NULL == node)
@@ -93,10 +94,10 @@ void XML_LogModuleRead(CAT_Conf *cf, CONF_Log *out_data)
         goto err;
     }
 
-    moduleRoot = XML_GetModuleRoot(root, "log");
+    moduleRoot = (TiXmlElement *)XML_GetModuleRoot((void *)root, "log");
     if (NULL == moduleRoot)
     {
-        CAT_LogError("Failed to get module root : test\n");
+        CAT_LogError("Failed to get module root : log\n");
         goto err;
     }
 
@@ -145,7 +146,7 @@ err:
 }
 
 
-void XML_GuiModuleRead(CAT_Conf *cf, CONF_Test *out_data)
+void XML_GuiModuleRead(CAT_Conf *cf, CONF_Gui *out_data)
 {
     TiXmlElement    *root       = NULL;
     TiXmlElement    *moduleRoot = NULL;
@@ -168,7 +169,7 @@ void XML_GuiModuleRead(CAT_Conf *cf, CONF_Test *out_data)
         goto err;
     }
 
-    moduleRoot = XML_GetModuleRoot(root, "gui");
+    moduleRoot = (TiXmlElement *)XML_GetModuleRoot((void *)root, "gui");
     if (NULL == moduleRoot)
     {
         CAT_LogError("Failed to get the module root of file: %s\n", cf->file);
@@ -222,7 +223,7 @@ void XML_TestModuleRead(CAT_Conf *cf, CONF_Test *out_data)
         goto err;
     }
 
-    moduleRoot = XML_GetModuleRoot(root, "test");
+    moduleRoot = (TiXmlElement *)XML_GetModuleRoot((void *)root, "test");
     if (NULL == moduleRoot)
     {
         CAT_LogError("Failed to get module root : test\n");
@@ -260,9 +261,9 @@ err:
 }
 
 
-TiXmlElement *XML_GetModuleRoot(TiXmlElement *root, char *name)
+void *XML_GetModuleRoot(void *root, char *name)
 {
-    TiXmlElement    *tmp = root->FirstChildElement("module");
+    TiXmlElement    *tmp = ((TiXmlElement *)root)->FirstChildElement("module");
     TiXmlAttribute  *attr = NULL;
     while (tmp)
     {

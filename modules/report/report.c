@@ -68,17 +68,20 @@ osa_err_t   reportConfWrite(CAT_Conf *cf, void *data)
 
 osa_err_t   reportModuleEntry(CAT_Conf *cf, int argc, char **argv)
 {
-    CAT_LogDebug("Entry TEST module!\n");
+    CAT_LogDebug("Entry REPORT module!\n");
     
     CONF_Test   reportConf;
     
     CAT_ConfSetModuleConf(cf, &reportModule);
     CAT_ConfRead(cf, &reportConf);
     
+    printf("name = %s\n", reportConf.name);
+    printf("name = %d\n", reportConf.state);
+    
     // 如果模块为关闭状态，则不处理
     if (reportConf.state == CAT_MODULE_OFF)
     {
-        return OSA_ERR_OK;
+        return OSA_ERR_ERR;
     }
     else
     {

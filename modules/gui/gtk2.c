@@ -40,6 +40,6 @@ void    CAT_GuiStart(int argc, char **argv)
     /*进入消息处理循环*/
     gtk_main();
 
-    return 0;
+    return;
 }
 

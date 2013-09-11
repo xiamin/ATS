@@ -24,12 +24,11 @@ int main(int argc, char **argv)
 {   
     g_conf = CAT_ConfInit(CAT_CONFIG_FILE);
     
-    CAT_TestModuleInit();
-    CAT_GuiModuleInit();
-    CAT_ReportModuleInit();
     CAT_LogModuleInit();
+    CAT_TestModuleInit();
+    CAT_ReportModuleInit();
+    CAT_GuiModuleInit();
     //CAT_ErpModuleInit();
-    //CAT_GuiModuleInit();
     
     CAT_ModuleInitAll(argc, argv);
     

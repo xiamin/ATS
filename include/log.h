@@ -51,6 +51,7 @@ void CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...)
 osa_err_t   CAT_LogModuleInit();
 void        CAT_LogModuleExit();
 
+
 #ifdef __cplusplus
 }
 #endif

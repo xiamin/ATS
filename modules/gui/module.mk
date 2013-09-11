@@ -1,6 +1,6 @@
 ### module.mk
 
-LOCAL_PATH             :=$(call my-dir)
+LOCAL_PATH             :=$(call MyDir)
 
 LOCAL_MODULE           :=libgui
 LOCAL_MODULE_OWNER     :=
@@ -20,12 +20,15 @@ LOCAL_LIBRARY_DIRS     :=
 LOCAL_EXPORT_HEADER_TO	 :=
 LOCAL_EXPORT_HEADER_DIRS :=
 
-LOCAL_STATIC_LIBRARIES :=
+LOCAL_STATIC_LIBRARIES :=liblog
 LOCAL_SHARED_LIBRARIES :=
 
 LOCAL_ARLIBS           :=
+
+
 LOCAL_LDLIBS           :=
 
+		
 gtk_cflags:=-D_REENTRANT -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12  
 LOCAL_CFLAGS           :=-DTIXML_USE_STL  $(gtk_cflags)
 LOCAL_CXXFLAGS         :=
