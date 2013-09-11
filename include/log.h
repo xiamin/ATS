@@ -18,13 +18,14 @@ extern "C" {
 
 enum
 {
-    CAT_LOG_FATAL,
-    CAT_LOG_ERROR,
-    CAT_LOG_WARN,
-    CAT_LOG_INFO,
-    CAT_LOG_DEBUG,
+    CAT_LOG_OFF     = 0,
+    CAT_LOG_FATAL   = 1,
+    CAT_LOG_ERROR   = 2,
+    CAT_LOG_WARN    = 3,
+    CAT_LOG_INFO    = 4,
+    CAT_LOG_DEBUG   = 5,
 
-    CAT_LOG_MAX,
+    CAT_LOG_MAX     = 6,
 };
 
 #ifndef NDEBUG
@@ -46,7 +47,9 @@ enum
 #endif
 
 
-void CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...);
+void        CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...);
+void        CAT_LogSetLevel(osa_uint8_t level);
+osa_uint8_t CAT_LogGetLevel();
 
 osa_err_t   CAT_LogModuleInit();
 void        CAT_LogModuleExit();

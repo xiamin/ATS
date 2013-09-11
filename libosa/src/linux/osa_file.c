@@ -26,12 +26,6 @@
 #include "osa_debug.h"
 #include "osa_log.h"
 
-struct _OSA_FILE
-{
-    char        fpath[OSA_PATH_MAX];
-    FILE        *fp;
-    osa_size_t  fsize;
-};
 
 OSA_API osa_err_t osa_file_open(osa_file_t *file, const char *fpath, const char *mode)
 {

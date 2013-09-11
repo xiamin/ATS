@@ -20,7 +20,7 @@ LOCAL_LIBRARY_DIRS     :=
 LOCAL_EXPORT_HEADER_TO	 :=
 LOCAL_EXPORT_HEADER_DIRS :=
 
-LOCAL_STATIC_LIBRARIES :=libtest libtinyxml libgui libreport libosa
+LOCAL_STATIC_LIBRARIES :=libtest libtinyxml libgui libreport 
 LOCAL_SHARED_LIBRARIES :=
 
 LOCAL_ARLIBS           :=

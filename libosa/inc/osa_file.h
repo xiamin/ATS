@@ -22,6 +22,8 @@
 #ifndef OSA_FILE_H_
 #define OSA_FILE_H_
 
+#include <stdio.h>
+
 #include "osa_types.h"
 #include "osa_stddef.h"
 #include "osa_error.h"
@@ -31,7 +33,15 @@
 #define OSA_FMODE_RDWR      "w+"
 #define OSA_FMODE_APPEND    "a"
 
-typedef struct _OSA_FILE    osa_file_t;
+
+typedef struct _OSA_FILE
+{
+    char        fpath[OSA_PATH_MAX];
+    FILE        *fp;
+    osa_size_t  fsize;
+}osa_file_t;
+
+
 
 /**
  * file open
