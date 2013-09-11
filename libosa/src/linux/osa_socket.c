@@ -130,13 +130,13 @@ OSA_API osa_err_t osa_insock_client_init(osa_insock_t *sock, const char *server_
     if (sock->sfd <= 0)
     {
         osa_log_error("failed to initialize Internet socket\n");
-        return _ERR(OSA_ERR_SOCKET);
+        return OSA_ERR_SOCKET;
     }
 
     if (connect(sock->sfd, &server_addr, sizeof(struct sockaddr)) < 0)
     {
         osa_log_error("failed to connect to server: %s, %d\n", server_ip, server_port);
-        return _ERR(OSA_ERR_SOCKET);
+        return OSA_ERR_SOCKET;
     }
     return OSA_ERR_OK;
 }
