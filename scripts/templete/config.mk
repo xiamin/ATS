@@ -5,13 +5,3 @@ PROJECT_BUILD_TYPE     :=debug
 PROJECT_MODULE_OWNER   :=hello
 
 CROSS_COMPILE          :=
-
-AR                         :=$(AR)
-CC                         :=$(CC)
-CPP                        :=$(CC) -E
-CXX                        :=$(CXX)
-LD                         :=$(CXX)
-SIZE                       :=$(CROSS_COMPILE)size
-OBJDUMP                    :=$(CROSS_COMPILE)objdump
-NM                         :=$(CROSS_COMPILE)nm
-READELF                    :=$(CROSS_COMPILE)readelf
