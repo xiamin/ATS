@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     CAT_LogModuleInit();
     
     //  初始化内存池模块
-    CAT_MemPoolModuleInit();
+    //CAT_MemPoolModuleInit();
     
     // 初始化测试模块
     CAT_TestModuleInit();
@@ -44,6 +44,8 @@ int main(int argc, char **argv)
     
     
     CAT_ModuleInitAll(argc, argv);
+
+    CAT_TestStartAll();
     
     CAT_ConfExit(g_conf);
 }

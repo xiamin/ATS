@@ -5,7 +5,11 @@ LOCAL_PATH             :=$(call MyDir)
 LOCAL_MODULE           :=libtest
 LOCAL_MODULE_OWNER     :=
 
-LOCAL_SRC_FILES        :=test_module.c
+
+test_files:=test_point/dummy_test.c
+
+
+LOCAL_SRC_FILES        :=test_module.c test_mng.c test_xml.cpp $(test_files)
 
 #LOCAL_CORSS_COMPILE   :=
 #LOCAL_AR              :=$(LOCAL_CROSS_COMPILE)ar
@@ -14,7 +18,7 @@ LOCAL_SRC_FILES        :=test_module.c
 #LOCAL_CXX             :=$(LOCAL_CROSS_COMPILE)g++
 #LOCAL_LD              :=$(LOCAL_CC)
 
-LOCAL_INCLUDE_DIRS     :=$(PROJECT_TOP_DIR)/include osa_include tinyxml_include /usr/include/c++/4.4
+LOCAL_INCLUDE_DIRS     :=$(PROJECT_TOP_DIR)/include osa_include tinyxml_include  $(LOCAL_PATH)
 LOCAL_LIBRARY_DIRS     :=
 
 LOCAL_EXPORT_HEADER_TO	 :=

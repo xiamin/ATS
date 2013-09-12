@@ -124,7 +124,7 @@ void XML_LogModuleRead(CAT_Conf *cf, CONF_Log *out_data)
     node = moduleRoot->FirstChildElement("level");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: test_templete!\n");
+        CAT_LogError("Node not found: level!\n");
         goto err;
     }
     out_data->level = atoi(node->FirstChild()->Value());
@@ -133,7 +133,7 @@ void XML_LogModuleRead(CAT_Conf *cf, CONF_Log *out_data)
     node = moduleRoot->FirstChildElement("file");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: test_templete!\n");
+        CAT_LogError("Node not found: file!\n");
         goto err;
     }
     strncpy(out_data->logFile, node->FirstChild()->Value(), OSA_NAME_MAX-1);
@@ -247,10 +247,10 @@ void XML_TestModuleRead(CAT_Conf *cf, CONF_Test *out_data)
         out_data->state = CAT_MODULE_OFF;
     }
 
-    node = moduleRoot->FirstChildElement("test_templete");
+    node = moduleRoot->FirstChildElement("templete");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: test_templete!\n");
+        CAT_LogError("Node not found: templete!\n");
         goto err;
     }
     strncpy(out_data->testTemplete, node->FirstChild()->Value(), OSA_NAME_MAX-1);

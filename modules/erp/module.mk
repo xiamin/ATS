@@ -5,7 +5,7 @@ LOCAL_PATH             :=$(call MyDir)
 LOCAL_MODULE           :=liberp
 LOCAL_MODULE_OWNER     :=
 
-LOCAL_SRC_FILES        :=erp.c xml.cpp
+LOCAL_SRC_FILES        :=erp.c
 
 #LOCAL_CORSS_COMPILE   :=
 #LOCAL_AR              :=$(LOCAL_CROSS_COMPILE)ar

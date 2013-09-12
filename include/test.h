@@ -13,6 +13,11 @@
 #include "cat.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 typedef enum
 {
     CAT_TEST_SUCCESS = 0,
@@ -27,6 +32,7 @@ struct _CAT_TEST_CASE
     osa_uint32_t        caseSize;               // 每个测试用例大小
     void                *privData;              // 测试用例数据地址
 };
+
 
 // 设置测试用例
 void            CAT_TestCaseSet(CAT_TestCase *self, osa_uint32_t num, osa_uint32_t size, void *priv);
@@ -68,5 +74,11 @@ osa_err_t       CAT_TestStartAll();
 
 // 释放测试中申请的资源
 void            CAT_TestReleaseResource();
+
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CAT_TEST_H_ */

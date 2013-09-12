@@ -8,6 +8,13 @@
 #include "osa.h"
 #include "test.h"
 #include "test_xml.h"
+#include "log.h"
+#include "cat.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 // 测试点链表
@@ -20,11 +27,11 @@ CAT_TestPoint   *CAT_TestPointFind(const char *name)
     
     CAT_TestPoint   *node = NULL;
     
-    osa_list_t  *l = testPointList;
+    osa_list_t  *l = NULL;
     
-    for (; l != testPointList; l=l->next)
+    for (l=testPointList.next; l != &testPointList; l=l->next)
     {
-        node = osa_list_entry(l, struct CAT_TestPoint, list);
+        node = osa_list_entry(l, CAT_TestPoint, list);
         
         // 找到
         if (!strcmp(node->name, name))
@@ -54,9 +61,9 @@ osa_err_t   CAT_TestPointRegister(CAT_TestPoint *self)
     }
     else
     {
-        CAT_LogInfo("New test! \n");
+        CAT_LogInfo("New test point! \n");
         
-        osa_list_insert_after(testPointList->next, &self->list);    
+        osa_list_insert_after(testPointList.next, &self->list);    
     }
     
     return OSA_ERR_OK;
@@ -86,15 +93,30 @@ osa_err_t   CAT_TestStartAll()
 {   
     CAT_TestPoint   *node = NULL;
     
-    osa_list_t  *l = testPointList;
+    osa_list_t  *l = NULL;
     
-    for (; l != testPointList; l=l->next)
+    for (l=testPointList.next; l != &testPointList; l=l->next)
     {
-        node = osa_list_entry(l, struct CAT_TestPoint, list);
+        node = osa_list_entry(l, CAT_TestPoint, list);
         
-        if (node->start)
+        if (node->startTest)
         {
-            node->result = node->start(node->param);
+            node->result = node->startTest(&node->testCase);
+
+            if (node->result == CAT_TEST_SUCCESS)
+            {
+                if (node->successFunc)
+                {
+                    node->successFunc(NULL);
+                }
+            }
+            else if (node->result == CAT_TEST_FAILED)
+            {
+                if (node->failedFunc)
+                {
+                    node->failedFunc(NULL);
+                }
+            }
         }
     }
     
@@ -109,15 +131,9 @@ osa_err_t   CAT_TestParseTemplete(const char *file)
         return OSA_ERR_ERR;
     }
     
-    void  *xmlDoc  = XML_LoadFile(file);
-    if (!xmlDoc)
-    {
-        CAT_LogError("Failed to load templete file : %s\n", file);
-        
-        return OSA_ERR_ERR;
-    }
-    
-    XML_ParseAll(xmlDoc);
+    CAT_LogInfo("Start parse test templete file !\n");
+
+    XML_ParseAll(file);
     
     return OSA_ERR_OK;
 }
@@ -163,3 +179,9 @@ void    CAT_TestCaseSet(CAT_TestCase *self, osa_uint32_t num, osa_uint32_t size,
     self->caseSize  = size;
     self->privData  = priv;
 }
+
+
+
+#ifdef __cplusplus
+}
+#endif

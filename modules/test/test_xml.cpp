@@ -5,10 +5,12 @@
  *
  */
  
+#include "test.h"
 #include "test_xml.h"
 #include "test_data.h"
 #include "log.h"
-#include "test.h"
+
+#include "test_table.h"
 
 #include "tinyxml.h"
 
@@ -19,45 +21,61 @@ extern "C" {
 
 
 // 解析云台配置
-static osa_err_t    _ParsePtz(TiXmlDocument *xmlDoc);
+static osa_err_t    _ParsePtz(TiXmlElement *root);
 
 // 解析网络配置
-static osa_err_t    _ParseNetwork(TEST_Network *out_network);
+static osa_err_t    _ParseNetwork(TiXmlElement *root);
 
-static osa_err_t    
-
-
-void    *XML_LoadFile(const char *file)
-{
-    TiXmlDocument   *doc = new TiXmlDocument(file);
-    
-    bool ret = doc->LoadFile();
-    if (ret != true)
-    {
-        CAT_LogError("Failed to load XML file: %s\n", file);
-        
-        return NULL;
-    }
-    
-    _ParsePtz(doc);
-    
-    
-    return (void *)doc;
-}
+// dummy
+static osa_err_t    _ParseDummy(TiXmlElement *root);
 
 
-osa_err_t   XML_ParseAll(void *xmlDoc)
+osa_err_t   XML_ParseAll(const char *file)
 {
     osa_err_t   err;
     
-    TiXmlDocument   *doc = (TiXmlDocument *)xmlDoc;
-    
-    if (!doc)
+    TiXmlDocument   *doc = new TiXmlDocument(file);
+    if (doc->LoadFile() != true)
     {
+        CAT_LogError("Failed to load templete file : %s\n", file);
+        
         return OSA_ERR_ERR;
     }
-    
 
+    TiXmlElement    *root = doc->RootElement();
+    if (!root)
+    {
+        CAT_LogError("Unable to get xml root : %s!\n", file);
+
+        return OSA_ERR_ERR;
+    }
+
+#if 0
+    err = _ParsePtz(root);
+    if (err != OSA_ERR_OK)
+    {
+        goto err;
+    }
+
+    //err = _ParseNetwork(root);
+    //if (err != OSA_ERR_OK)
+    //{
+     //   goto err;
+    //}
+#endif
+
+    err = _ParseDummy(root);
+    if (err != OSA_ERR_OK)
+    {
+        goto err;
+    }
+
+    return OSA_ERR_OK;
+
+
+err:
+    return OSA_ERR_ERR;
+    
 }
 
 
@@ -78,48 +96,41 @@ void    *XML_GetTestPointRoot(void *xmlRoot, char *name)
     return NULL;
 }
 
-static osa_err_t   _ParsePtz(TiXmlDocument *xmlDoc)
-{
-    TEST_Ptz    *ptz = malloc(sizeof(TEST_Ptz));
-    if (!ptz)
-    {
-        goto noMem;
-    }
-    
-    TiXmlElement    *root = xmlDoc->RootElement();
-    if (!root)
-    {
-        goto xmlErr;
-    }
-    
-    TiXmlElement    *ptzRoot = XML_GetTestPointRoot(root, PTZ_NODE_NAME);
-    
-    
-    if (err == OSA_ERR_OK)
-    {
-        CAT_TestPoint   *newTest = CAT_TestPointNew(PTZ_NODE_NAME);
-        
-        if (!newTest)
-        {
-            goto noMem;
-        }
-        
-        newTest->param  = ptz;
-        newTest->result = CAT_TEST_FAILED;
-        newTest->start  = _PtzTestEntry;
-    }
-    
-    
-xmlErr:
-    
-    return OSA_ERR_ERR;
-noMem:
-    CAT_LogError("No memory!\n");
-    return OSA_ERR_ERR;;
 
-err:
-    CAT_LogError("Error!\n");
-    return OSA_ERR_ERR;
+static osa_err_t   _ParsePtz(TiXmlElement *root)
+{
+
+    TEST_Ptz    ptzTP;
+    
+    
+    TiXmlElement    *ptzRoot = (TiXmlElement *)XML_GetTestPointRoot((void *)root, PTZ_NODE_NAME);
+    
+}
+
+
+
+static osa_err_t    _ParseDummy(TiXmlElement *root)
+{
+
+    osa_uint32_t    i;
+    CAT_TestPoint   *p = NULL;
+
+    osa_size_t  sz = sizeof(g_testPointTable)/sizeof(g_testPointTable[0]);
+
+    for (i=0; i<sz; i++)
+    {
+        if (!strcmp(g_testPointTable[i].name, "DummyTest"))
+        {
+            p = g_testPointTable[i].getTestPoint();
+
+            CAT_TestCaseSet(&p->testCase, 0, 0, NULL);
+
+            CAT_TestPointRegister(p);
+            break;
+        }
+    }
+
+    return OSA_ERR_OK;
 }
 
 

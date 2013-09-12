@@ -55,18 +55,18 @@ void    CAT_TestModuleExit()
 
 
 
-osa_err_t   testConfRead(CAT_Conf *cf, void *out_data)
+static osa_err_t   testConfRead(CAT_Conf *cf, void *out_data)
 {
     XML_TestModuleRead(cf, out_data);
     return OSA_ERR_OK;
 }
 
-osa_err_t   testConfWrite(CAT_Conf *cf, void *data)
+static osa_err_t   testConfWrite(CAT_Conf *cf, void *data)
 {
     
 }
 
-osa_err_t   testModuleEntry(CAT_Conf *cf, int argc, char **argv)
+static osa_err_t   testModuleEntry(CAT_Conf *cf, int argc, char **argv)
 {
     CAT_LogDebug("Entry TEST module!\n");
     
@@ -84,13 +84,11 @@ osa_err_t   testModuleEntry(CAT_Conf *cf, int argc, char **argv)
     {
         CAT_TestParseTemplete(testConf.testTemplete);
         
-        CAT_TestStartAll();
-        
         return OSA_ERR_OK;
     }
 }
 
-void    testModuleExit(CAT_Conf *cf)
+static void    testModuleExit(CAT_Conf *cf)
 {
     
 }
