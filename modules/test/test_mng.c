@@ -61,7 +61,7 @@ osa_err_t   CAT_TestPointRegister(CAT_TestPoint *self)
     }
     else
     {
-        CAT_LogInfo("New test point! \n");
+        CAT_LogInfo("Add new test point : %s\n", self->name);
         
         osa_list_insert_after(testPointList.next, &self->list);    
     }
