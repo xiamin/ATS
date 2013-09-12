@@ -18,7 +18,7 @@ typedef struct _CAT_CONF            CAT_Conf;
 typedef struct _CAT_MODULE          CAT_Module;
 typedef struct _CAT_TEST_POINT      CAT_TestPoint;
 typedef struct _CAT_TEST_CASE       CAT_TestCase;
-typedef struct 
+typedef struct _CAT_MEMORY_POOL     CAT_MemPool;
 
 
 extern CAT_Conf  *g_conf;

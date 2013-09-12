@@ -57,28 +57,5 @@ typedef struct
 
 
 
-// 测试插槽
-
-typedef osa_err_t   (*slot)(void *param);
-
-typedef struct _SLOT
-{
-    char        *cmd;           // 命令
-    slot        handler;        // 处理函数
-    void        *param;         // 参数
-}TEST_CmdSlot;
-
-
-#define CMD_SLOT(cmdName, handler)   {cmdName, handler, NULL}
-
-// 全局变量
-TEST_CmdSlot    g_slot[] =
-{
-    CMD_SLOT("VersionTest", testVersion),
-    
-    CMD_SLOT("DummyTest", testDummy),
-};
-
-
 
 #endif
