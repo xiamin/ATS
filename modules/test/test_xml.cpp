@@ -19,12 +19,12 @@ extern "C" {
 
 
 // 解析云台配置
-static osa_err_t   _ParsePtz(TiXmlDocument *xmlDoc);
+static osa_err_t    _ParsePtz(TiXmlDocument *xmlDoc);
 
 // 解析网络配置
-static osa_err_t   _ParseNetwork(TEST_Network *out_network);
+static osa_err_t    _ParseNetwork(TEST_Network *out_network);
 
-
+static osa_err_t    
 
 
 void    *XML_LoadFile(const char *file)

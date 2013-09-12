@@ -19,12 +19,21 @@ typedef enum
 }CAT_TestResult;
 
 
+// 测试用例
+typedef struct _CAT_TEST_CASE
+{
+    osa_uint32_t        caseNum;                // 测试用例数量
+    osa_uint32_t        caseSize;               // 每个测试用例大小
+    void                *privData;              // 测试用例数据地址
+}CAT_TestCase;
+
+
 // 测试点
 typedef struct _CAT_TEST_POINT
 {
     char            name[OSA_NAME_MAX];         // 测试点名字
     osa_uint32_t    priority;                   // 测试优先级，数字越小优先级越大
-    void            *param;                     // 测试参数
+    CAT_TestCase    testCase;                   // 测试用例
     CAT_TestResult  result;                     // 测试结果
     
     osa_list_t      list;                       // 链表
