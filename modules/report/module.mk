@@ -5,7 +5,7 @@ LOCAL_PATH             :=$(call MyDir)
 LOCAL_MODULE           :=libreport
 LOCAL_MODULE_OWNER     :=
 
-LOCAL_SRC_FILES        :=report.c
+LOCAL_SRC_FILES        :=report_module.c
 
 #LOCAL_CORSS_COMPILE   :=
 #LOCAL_AR              :=$(LOCAL_CROSS_COMPILE)ar

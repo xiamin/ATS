@@ -33,6 +33,7 @@
 #include "osa_file.h"
 #include "osa_i18n.h"
 #include "osa_iochannel.h"
+#include "osa_list.h"
 #include "osa_log.h"
 #include "osa_mem.h"
 #include "osa_sem.h"

@@ -56,6 +56,7 @@ static CAT_Module  logModule =
 
 osa_err_t   CAT_LogModuleInit()
 {
+    // 日志文件没有打开，先关闭日志
     CAT_LogSetLevel(CAT_LOG_OFF);
 
     CAT_LogDebug("Initialize log module\n");
@@ -135,7 +136,6 @@ osa_uint8_t CAT_LogGetLevel()
 
 void CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...)
 {
-
     if (logType > log.logLevel)
     {
         return;
@@ -171,7 +171,7 @@ void CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...)
         }
         case CAT_LOG_DEBUG:
         {
-            sz += sprintf(buf, "[DEBUG]<%s, %s> ", file, line);
+            sz += sprintf(buf, "[DEBUG]<%s, %d> ", file, line);
             break;
         }
         default:
@@ -179,7 +179,6 @@ void CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...)
         }
     }
     
-
     sz += vsprintf(buf+sz, fmt, ap);
 
     buf[1023] = '\0';

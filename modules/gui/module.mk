@@ -5,7 +5,10 @@ LOCAL_PATH             :=$(call MyDir)
 LOCAL_MODULE           :=libgui
 LOCAL_MODULE_OWNER     :=
 
-LOCAL_SRC_FILES        :=gui.c gtk2.c
+gtk_srcs:=gtk2/gtk2.c
+qt_srcs:=qt4/qt4.c
+
+LOCAL_SRC_FILES        :=gui_module.c $(gtk_srcs)
 
 #LOCAL_CORSS_COMPILE   :=
 #LOCAL_AR              :=$(LOCAL_CROSS_COMPILE)ar

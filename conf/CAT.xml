@@ -1,32 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <CAT>
-	<module name="test">
-		<!--测试模块-->
-		<state>on</state>
-		<test_templete>/etc/cat/test_templete.xml</test_templete>
-	</module>
+    <module name="test">
+        <!--测试模块-->
+        <state>on</state>
+        <templete platform="XM_IPC">/etc/cat/xm_ipc.xml</templete>
+        <templete platform="HaiKang_xx">/etc/cat/hk_xx.xml</templete>
+    </module>
 	
-	<module name="report">
-		<!--报告模块-->
-		<state>on</state>
-		<output>STDOUT</output>
-	</module>
+    <module name="report">
+        <!--报告模块-->
+        <state>on</state>
+        <output>STDOUT</output>
+    </module>
 	
-	<module name="erp">
-		<!--ERP模块-->
-		<state>off</state>
+    <module name="erp">
+        <!--ERP模块-->
+        <state>off</state>
 	</module>
 
-	<module name="gui">
-		<!--GUI模块-->
-		<state>on</state>
-	</module>
+    <module name="gui">
+        <!--GUI模块-->
+        <state>off</state>
+    </module>
 	
-	<module name="log">
-		<!--日志-->
-		<state>on</state>
+    <module name="log">
+        <!--日志-->
+        <state>on</state>
         <!--0: off, 1: fatal, 2: error, 3: warn, 4:info, 5:debug-->
-        <level>3</level>
-		<file>/tmp/cat.log</file>
-	</module>
+        <level>4</level>
+        <file>/tmp/cat.log</file>
+    </module>
 </CAT>

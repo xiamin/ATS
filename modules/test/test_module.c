@@ -82,6 +82,10 @@ osa_err_t   testModuleEntry(CAT_Conf *cf, int argc, char **argv)
     }
     else
     {
+        CAT_TestParseTemplete(testConf.testTemplete);
+        
+        CAT_TestStartAll();
+        
         return OSA_ERR_OK;
     }
 }

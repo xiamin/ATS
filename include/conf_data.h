@@ -5,8 +5,8 @@
  *
  */
 
-#ifndef CONF_CMD_H_
-#define CONF_CMD_H_
+#ifndef CONF_DATA_H_
+#define CONF_DATA_H_
 
 #include "osa.h"
 

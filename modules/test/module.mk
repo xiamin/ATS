@@ -5,7 +5,7 @@ LOCAL_PATH             :=$(call MyDir)
 LOCAL_MODULE           :=libtest
 LOCAL_MODULE_OWNER     :=
 
-LOCAL_SRC_FILES        :=test.c
+LOCAL_SRC_FILES        :=test_module.c
 
 #LOCAL_CORSS_COMPILE   :=
 #LOCAL_AR              :=$(LOCAL_CROSS_COMPILE)ar
