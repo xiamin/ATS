@@ -43,6 +43,20 @@ TEST_NameSlot    g_testPointTable[] =
 #endif
 };
 
+#define TEST_POINT_ELE_NUM      (sizeof(g_testPointTable)/sizeof(g_testPointTable[0]))
+
+
+
+static inline CAT_TestPoint   *TEST_GetSlotTestPoint(const char *name)
+{
+    osa_uint32_t i;
+    for (i=0; i<TEST_POINT_ELE_NUM; i++)
+    {
+        if (!(strcmp(g_testPointTable[i].name, name)))
+            return g_testPointTable[i].getTestPoint();
+    }
+}
+
 
 
 #ifdef __cplusplus

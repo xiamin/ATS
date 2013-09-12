@@ -178,7 +178,7 @@ void    CAT_TestReleaseResource()
     
 }
 
-void    CAT_TestCaseSet(CAT_TestCase *self, osa_uint32_t num, osa_uint32_t size, void *priv)
+void    CAT_TestCaseBoxAssociate(CAT_TestCaseBox *self, osa_uint32_t num, osa_uint32_t size, void *priv)
 {
     self->caseNum   = num;
     self->caseSize  = size;

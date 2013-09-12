@@ -115,19 +115,13 @@ static osa_err_t    _ParseDummy(TiXmlElement *root)
     osa_uint32_t    i;
     CAT_TestPoint   *p = NULL;
 
-    osa_size_t  sz = sizeof(g_testPointTable)/sizeof(g_testPointTable[0]);
 
-    for (i=0; i<sz; i++)
+    p = TEST_GetSlotTestPoint("DummyTest");
+    
+    if (p)
     {
-        if (!strcmp(g_testPointTable[i].name, "DummyTest"))
-        {
-            p = g_testPointTable[i].getTestPoint();
-
-            CAT_TestCaseSet(&p->testCase, 0, 0, NULL);
-
-            CAT_TestPointRegister(p);
-            break;
-        }
+        CAT_TestCaseBoxAssociate(&p->testCase, 0, 0, NULL);
+        CAT_TestPointRegister(p);
     }
 
     return OSA_ERR_OK;

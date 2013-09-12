@@ -15,7 +15,7 @@
 #define     TEST_DEFAULT_PRIORITY       100
 
 
-CAT_TestResult  dummyTestStart(CAT_TestCase *testCase);       // 开始测试
+CAT_TestResult  dummyTestStart(CAT_TestCaseBox *testCase);       // 开始测试
 void            dummySuccessCall(CAT_TestPoint *self);                 // 测试成功后调用
 void            dummyFailedCall(CAT_TestPoint *self);                  // 测试失败后调用
 
@@ -32,7 +32,7 @@ static CAT_TestPoint   dummyTestPoint =
 };
 
 
-CAT_TestResult  dummyTestStart(CAT_TestCase *testCase)
+CAT_TestResult  dummyTestStart(CAT_TestCaseBox *testCase)
 {
     CAT_LogInfo("start test dummy module!\n");
     

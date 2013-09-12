@@ -26,8 +26,8 @@ typedef enum
 }CAT_TestResult;
 
 
-// 测试用例
-struct _CAT_TEST_CASE
+// 测试用例容器
+struct _CAT_TEST_CASE_BOX
 {
     osa_uint32_t        caseNum;                // 测试用例数量
     osa_uint32_t        caseSize;               // 每个测试用例大小
@@ -35,8 +35,9 @@ struct _CAT_TEST_CASE
 };
 
 
-// 设置测试用例
-void            CAT_TestCaseSet(CAT_TestCase *self, osa_uint32_t num, osa_uint32_t size, void *priv);
+// 把测试用例集和用例容器盒子关联. 
+// 注意：关联意味着privData只是指向，不申请内存，请不要使用栈上的数据,否则可能出现未知错误
+void            CAT_TestCaseBoxAssociate(CAT_TestCaseBox *self, osa_uint32_t num, osa_uint32_t size, void *priv);
 
 
 // 测试点
@@ -44,12 +45,12 @@ struct _CAT_TEST_POINT
 {
     char            *name;                      // 测试点名字
     osa_uint32_t    priority;                   // 测试优先级，数字越小优先级越大
-    CAT_TestCase    testCase;                   // 测试用例
+    CAT_TestCaseBox testCase;                   // 测试用例集
     CAT_TestResult  result;                     // 测试结果
     
     osa_list_t      list;                       // 链表
     
-    CAT_TestResult  (*startTest)(CAT_TestCase *testCase);       // 开始测试
+    CAT_TestResult  (*startTest)(CAT_TestCaseBox *testCase);       // 开始测试
     void            (*stopTest)();                              // 停止测试, 现在没有使用
     void            (*successFunc)(CAT_TestPoint *self);                 // 测试成功后调用
     void            (*failedFunc)(CAT_TestPoint *self);                  // 测试失败后调用

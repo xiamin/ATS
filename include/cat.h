@@ -17,7 +17,7 @@ typedef struct _CAT_MODULE_CONF     CAT_ModuleConf;
 typedef struct _CAT_CONF            CAT_Conf;
 typedef struct _CAT_MODULE          CAT_Module;
 typedef struct _CAT_TEST_POINT      CAT_TestPoint;
-typedef struct _CAT_TEST_CASE       CAT_TestCase;
+typedef struct _CAT_TEST_CASE_BOX   CAT_TestCaseBox;
 typedef struct _CAT_MEMORY_POOL     CAT_MemPool;
 
 
