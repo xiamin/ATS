@@ -12,6 +12,11 @@
 #include "log.h"
 #include "report.h"
 
+
+
+CAT_Report  g_reportFile;
+
+
 static osa_err_t   reportConfRead(CAT_Conf *cf, void *out_data); 
 static osa_err_t   reportConfWrite(CAT_Conf *cf, void *data); 
 static osa_err_t   reportModuleEntry(CAT_Conf *cf, int argc, char **argv);

@@ -16,8 +16,8 @@
 
 
 CAT_TestResult  dummyTestStart(CAT_TestCase *testCase);       // 开始测试
-void            dummySuccessCall(void *data);                 // 测试成功后调用
-void            dummyFailedCall(void *data);                  // 测试失败后调用
+void            dummySuccessCall(CAT_TestPoint *self);                 // 测试成功后调用
+void            dummyFailedCall(CAT_TestPoint *self);                  // 测试失败后调用
 
 
 static CAT_TestPoint   dummyTestPoint = 
@@ -40,14 +40,14 @@ CAT_TestResult  dummyTestStart(CAT_TestCase *testCase)
 }
 
 
-void            dummySuccessCall(void *data)
+void            dummySuccessCall(CAT_TestPoint *self)
 {
     CAT_LogInfo("dummy test success call!\n");
     
 }
 
 
-void            dummyFailedCall(void *data)
+void            dummyFailedCall(CAT_TestPoint *self)
 {
     CAT_LogInfo("dummy test failed call!\n");
     

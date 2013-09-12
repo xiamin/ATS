@@ -11,6 +11,8 @@
 #include "log.h"
 #include "cat.h"
 
+#include "report.h"
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,6 +52,8 @@ osa_err_t   CAT_TestPointRegister(CAT_TestPoint *self)
     {
         return OSA_ERR_ERR;
     }
+
+    self->report = &g_reportFile;
     
     CAT_TestPoint   *p = NULL;
     
@@ -65,6 +69,7 @@ osa_err_t   CAT_TestPointRegister(CAT_TestPoint *self)
         
         osa_list_insert_after(testPointList.next, &self->list);    
     }
+
     
     return OSA_ERR_OK;
 }
@@ -107,14 +112,14 @@ osa_err_t   CAT_TestStartAll()
             {
                 if (node->successFunc)
                 {
-                    node->successFunc(NULL);
+                    node->successFunc(node);
                 }
             }
             else if (node->result == CAT_TEST_FAILED)
             {
                 if (node->failedFunc)
                 {
-                    node->failedFunc(NULL);
+                    node->failedFunc(node);
                 }
             }
         }
