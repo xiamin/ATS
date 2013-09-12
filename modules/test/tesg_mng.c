@@ -152,7 +152,14 @@ void    CAT_TestPointDelete(CAT_TestPoint *self)
     free(self);
 }
 
-void        CAT_TestReleaseResource()
+void    CAT_TestReleaseResource()
 {
     
+}
+
+void    CAT_TestCaseSet(CAT_TestCase *self, osa_uint32_t num, osa_uint32_t size, void *priv)
+{
+    self->caseNum   = num;
+    self->caseSize  = size;
+    self->privData  = priv;
 }

@@ -10,6 +10,7 @@
 
 
 #include "osa.h"
+#include "cat.h"
 
 
 typedef enum
@@ -20,16 +21,19 @@ typedef enum
 
 
 // 测试用例
-typedef struct _CAT_TEST_CASE
+struct _CAT_TEST_CASE
 {
     osa_uint32_t        caseNum;                // 测试用例数量
     osa_uint32_t        caseSize;               // 每个测试用例大小
     void                *privData;              // 测试用例数据地址
-}CAT_TestCase;
+};
+
+// 设置测试用例
+void            CAT_TestCaseSet(CAT_TestCase *self, osa_uint32_t num, osa_uint32_t size, void *priv);
 
 
 // 测试点
-typedef struct _CAT_TEST_POINT
+struct _CAT_TEST_POINT
 {
     char            name[OSA_NAME_MAX];         // 测试点名字
     osa_uint32_t    priority;                   // 测试优先级，数字越小优先级越大
@@ -38,9 +42,9 @@ typedef struct _CAT_TEST_POINT
     
     osa_list_t      list;                       // 链表
     
-    osa_uint32_t    (*start)(void *param);      // 开始测试
-    void            (*stop)();                  // 停止测试, 现在没有使用
-}CAT_TestPoint;
+    osa_uint32_t    (*start)(CAT_TestCase *testCase);       // 开始测试
+    void            (*stop)();                              // 停止测试, 现在没有使用
+};
 
 
 CAT_TestPoint   *CAT_TestPointFind(const char *name);
@@ -51,16 +55,16 @@ osa_err_t       CAT_TestPointUnregister(CAT_TestPoint *self);
 CAT_TestPoint   *CAT_TestPointNew(const char *name);
 void            CAT_TestPointDelete(CAT_TestPoint *self);
 
-osa_err_t   CAT_TestModuleInit();
-void        CAT_TestModuleExit();
+osa_err_t       CAT_TestModuleInit();
+void            CAT_TestModuleExit();
 
 // 解析测试模块文件
-osa_err_t   CAT_TestParseTemplete(const char *file);
+osa_err_t       CAT_TestParseTemplete(const char *file);
 
 // 开始所有的测试
-osa_err_t   CAT_TestStartAll();
+osa_err_t       CAT_TestStartAll();
 
 // 释放测试中申请的资源
-void        CAT_TestReleaseResource();
+void            CAT_TestReleaseResource();
 
 #endif /* CAT_TEST_H_ */
