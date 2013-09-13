@@ -9,7 +9,7 @@
 #include "test.h"
 #include "test_xml.h"
 #include "log.h"
-#include "cat.h"
+#include "ats.h"
 
 #include "report.h"
 

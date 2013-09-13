@@ -10,7 +10,7 @@
 #include "conf.h"
 #include "conf_data.h"
 #include "module.h"
-#include "cat.h"
+#include "ats.h"
 
 #include "test.h"
 #include "report.h"

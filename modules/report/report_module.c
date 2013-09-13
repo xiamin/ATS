@@ -7,7 +7,7 @@
 
 #include "osa.h"
 #include "module.h"
-#include "cat.h"
+#include "ats.h"
 #include "conf_xml.h"
 #include "log.h"
 #include "report.h"

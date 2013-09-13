@@ -9,7 +9,7 @@
 #define MODULE_H_
 
 #include "osa.h"
-#include "cat.h"
+#include "ats.h"
 
 #ifdef __cplusplus
 extern "C" {
