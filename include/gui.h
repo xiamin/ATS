@@ -5,9 +5,9 @@
  *
  */
 
-#ifndef CAT_GUI_H_
-#define CAT_GUI_H_
+#ifndef ATS_GUI_H_
+#define ATS_GUI_H_
 
-void    CAT_GuiStart(int argc, char **argv);
+void    ATS_GuiStart(int argc, char **argv);
 
-#endif /* CAT_GUI_H_ */
+#endif /* ATS_GUI_H_ */

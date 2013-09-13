@@ -14,19 +14,19 @@
 
 
 
-CAT_Report  g_reportFile;
+ATS_Report  g_reportFile;
 
 
-static osa_err_t   reportConfRead(CAT_Conf *cf, void *out_data); 
-static osa_err_t   reportConfWrite(CAT_Conf *cf, void *data); 
-static osa_err_t   reportModuleEntry(CAT_Conf *cf, int argc, char **argv);
-static void        reportModuleExit(CAT_Conf *cf);
+static osa_err_t   reportConfRead(ATS_Conf *cf, void *out_data); 
+static osa_err_t   reportConfWrite(ATS_Conf *cf, void *data); 
+static osa_err_t   reportModuleEntry(ATS_Conf *cf, int argc, char **argv);
+static void        reportModuleExit(ATS_Conf *cf);
 
  
-static CAT_Module  reportModule =
+static ATS_Module  reportModule =
 {
     .name   = "report",
-    .state  = CAT_MODULE_ON,
+    .state  = ATS_MODULE_ON,
     .cf     =
     {
         .open   = NULL,
@@ -41,47 +41,47 @@ static CAT_Module  reportModule =
 
 
 
-osa_err_t   CAT_ReportModuleInit()
+osa_err_t   ATS_ReportModuleInit()
 {
-    CAT_LogDebug("Initialize report module\n");
+    ATS_LogDebug("Initialize report module\n");
     
-    CAT_ModuleRegister(&reportModule);
+    ATS_ModuleRegister(&reportModule);
     
     return OSA_ERR_OK;
 }
 
-void        CAT_ReportModuleExit()
+void        ATS_ReportModuleExit()
 {
-    CAT_LogDebug("Exit report module\n");
+    ATS_LogDebug("Exit report module\n");
     
-    CAT_ModuleUnregister(&reportModule);
+    ATS_ModuleUnregister(&reportModule);
 }
 
 
 
 
-osa_err_t   reportConfRead(CAT_Conf *cf, void *out_data)
+osa_err_t   reportConfRead(ATS_Conf *cf, void *out_data)
 {
     XML_ReportModuleRead(cf, out_data);
     return OSA_ERR_OK;
 }
 
-osa_err_t   reportConfWrite(CAT_Conf *cf, void *data)
+osa_err_t   reportConfWrite(ATS_Conf *cf, void *data)
 {
     
 }
 
-osa_err_t   reportModuleEntry(CAT_Conf *cf, int argc, char **argv)
+osa_err_t   reportModuleEntry(ATS_Conf *cf, int argc, char **argv)
 {
-    CAT_LogDebug("Entry REPORT module!\n");
+    ATS_LogDebug("Entry REPORT module!\n");
     
     CONF_Test   reportConf;
     
-    CAT_ConfSetModuleConf(cf, &reportModule);
-    CAT_ConfRead(cf, &reportConf);
+    ATS_ConfSetModuleConf(cf, &reportModule);
+    ATS_ConfRead(cf, &reportConf);
     
     // 如果模块为关闭状态，则不处理
-    if (reportConf.state == CAT_MODULE_OFF)
+    if (reportConf.state == ATS_MODULE_OFF)
     {
         return OSA_ERR_ERR;
     }
@@ -91,7 +91,7 @@ osa_err_t   reportModuleEntry(CAT_Conf *cf, int argc, char **argv)
     }
 }
 
-void    reportModuleExit(CAT_Conf *cf)
+void    reportModuleExit(ATS_Conf *cf)
 {
     
 }

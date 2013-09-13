@@ -12,19 +12,19 @@
 #include "cat.h"
 
 
-struct _CAT_CONF
+struct _ATS_CONF
 {
     char            file[OSA_NAME_MAX];      // 配置文件名
-    CAT_ModuleConf  *mcf;                   // 模块配置 
+    ATS_ModuleConf  *mcf;                   // 模块配置 
 };
 
 
-CAT_Conf   *CAT_ConfInit(const char *file);
-void        CAT_ConfExit(CAT_Conf *self);
+ATS_Conf   *ATS_ConfInit(const char *file);
+void        ATS_ConfExit(ATS_Conf *self);
 
-void        CAT_ConfSetModuleConf(CAT_Conf *self, CAT_Module *m);
+void        ATS_ConfSetModuleConf(ATS_Conf *self, ATS_Module *m);
 
-osa_err_t   CAT_ConfRead(CAT_Conf *self, void *out_data);
-osa_err_t   CAT_ConfWrite(CAT_Conf *self, void *data);
+osa_err_t   ATS_ConfRead(ATS_Conf *self, void *out_data);
+osa_err_t   ATS_ConfWrite(ATS_Conf *self, void *data);
 
 #endif /* CONF_H_ */

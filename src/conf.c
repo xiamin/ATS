@@ -11,10 +11,10 @@
 #include "conf_data.h"
 #include "module.h"
 
-static CAT_Conf    s_conf = {0};
+static ATS_Conf    s_conf = {0};
 
 
-CAT_Conf   *CAT_ConfInit(const char *file)
+ATS_Conf   *ATS_ConfInit(const char *file)
 {
     OSA_ASSERT(file != NULL);
     
@@ -24,18 +24,18 @@ CAT_Conf   *CAT_ConfInit(const char *file)
     return &s_conf;
 }
 
-void    CAT_ConfExit(CAT_Conf *self)
+void    ATS_ConfExit(ATS_Conf *self)
 {
     s_conf.mcf = NULL;
 }
 
-void    CAT_ConfSetModuleConf(CAT_Conf *self, CAT_Module *m)
+void    ATS_ConfSetModuleConf(ATS_Conf *self, ATS_Module *m)
 {
     self->mcf = &m->cf;
 }
 
 
-osa_err_t   CAT_ConfRead(CAT_Conf *self, void *out_data)
+osa_err_t   ATS_ConfRead(ATS_Conf *self, void *out_data)
 {
     if (self->mcf->read)
     {
@@ -44,7 +44,7 @@ osa_err_t   CAT_ConfRead(CAT_Conf *self, void *out_data)
 }
 
 
-osa_err_t   CAT_ConfWrite(CAT_Conf *self, void *data)
+osa_err_t   ATS_ConfWrite(ATS_Conf *self, void *data)
 {
     if (self->mcf->write)
     {

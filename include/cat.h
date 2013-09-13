@@ -5,23 +5,23 @@
  *
  */
 
-#ifndef CAT_H_
-#define CAT_H_
+#ifndef ATS_H_
+#define ATS_H_
 
-#ifndef CAT_CONFIG_FILE
-#define CAT_CONFIG_FILE     "/etc/cat/CAT.xml"
+#ifndef ATS_CONFIG_FILE
+#define ATS_CONFIG_FILE     "/etc/cat/CAT.xml"
 #endif
 
 
-typedef struct _CAT_MODULE_CONF     CAT_ModuleConf;
-typedef struct _CAT_CONF            CAT_Conf;
-typedef struct _CAT_MODULE          CAT_Module;
-typedef struct _CAT_TEST_POINT      CAT_TestPoint;
-typedef struct _CAT_TEST_CASE_BOX   CAT_TestCaseBox;
-typedef struct _CAT_MEMORY_POOL     CAT_MemPool;
+typedef struct _ATS_MODULE_CONF     ATS_ModuleConf;
+typedef struct _ATS_CONF            ATS_Conf;
+typedef struct _ATS_MODULE          ATS_Module;
+typedef struct _ATS_TEST_POINT      ATS_TestPoint;
+typedef struct _ATS_TEST_CASE_BOX   ATS_TestCaseBox;
+typedef struct _ATS_MEMORY_POOL     ATS_MemPool;
 
 
-extern CAT_Conf  *g_conf;
+extern ATS_Conf  *g_conf;
 
 
-#endif /* CAT_H_ */
+#endif /* ATS_H_ */

@@ -15,16 +15,16 @@
 #define     TEST_DEFAULT_PRIORITY       100
 
 
-CAT_TestResult  dummyTestStart(CAT_TestCaseBox *testCase);       // 开始测试
-void            dummySuccessCall(CAT_TestPoint *self);                 // 测试成功后调用
-void            dummyFailedCall(CAT_TestPoint *self);                  // 测试失败后调用
+ATS_TestResult  dummyTestStart(ATS_TestCaseBox *testCase);       // 开始测试
+void            dummySuccessCall(ATS_TestPoint *self);                 // 测试成功后调用
+void            dummyFailedCall(ATS_TestPoint *self);                  // 测试失败后调用
 
 
-static CAT_TestPoint   dummyTestPoint = 
+static ATS_TestPoint   dummyTestPoint = 
 {
     .name       = "dummyTest",
     .priority   = TEST_DEFAULT_PRIORITY,
-    .result     = CAT_TEST_FAILED,
+    .result     = ATS_TEST_FAILED,
     .startTest  = dummyTestStart,
     .stopTest   = NULL,
     .successFunc= dummySuccessCall,
@@ -32,29 +32,29 @@ static CAT_TestPoint   dummyTestPoint =
 };
 
 
-CAT_TestResult  dummyTestStart(CAT_TestCaseBox *testCase)
+ATS_TestResult  dummyTestStart(ATS_TestCaseBox *testCase)
 {
-    CAT_LogInfo("start test dummy module!\n");
+    ATS_LogInfo("start test dummy module!\n");
     
-    return CAT_TEST_FAILED;
+    return ATS_TEST_FAILED;
 }
 
 
-void            dummySuccessCall(CAT_TestPoint *self)
+void            dummySuccessCall(ATS_TestPoint *self)
 {
-    CAT_LogInfo("dummy test success call!\n");
-    
-}
-
-
-void            dummyFailedCall(CAT_TestPoint *self)
-{
-    CAT_LogInfo("dummy test failed call!\n");
+    ATS_LogInfo("dummy test success call!\n");
     
 }
 
 
-CAT_TestPoint   *dummyGetTPObj()
+void            dummyFailedCall(ATS_TestPoint *self)
+{
+    ATS_LogInfo("dummy test failed call!\n");
+    
+}
+
+
+ATS_TestPoint   *dummyGetTPObj()
 {
     return &dummyTestPoint;
 }

@@ -16,7 +16,7 @@ extern "C" {
 #endif
 
 
-void XML_ReportModuleRead(CAT_Conf *cf, CONF_Report *out_data)
+void XML_ReportModuleRead(ATS_Conf *cf, CONF_Report *out_data)
 {
     TiXmlElement    *root       = NULL;
     TiXmlElement    *moduleRoot = NULL;
@@ -28,21 +28,21 @@ void XML_ReportModuleRead(CAT_Conf *cf, CONF_Report *out_data)
     ret = doc.LoadFile();
     if (ret != true)
     {
-        CAT_LogError("Failed to load file: %s\n", cf->file);
+        ATS_LogError("Failed to load file: %s\n", cf->file);
         goto err;
     }
 
     root = doc.RootElement();
     if (NULL == root)
     {
-        CAT_LogError("Failed to get the root of file: %s\n", cf->file);
+        ATS_LogError("Failed to get the root of file: %s\n", cf->file);
         goto err;
     }
 
     moduleRoot = (TiXmlElement *)XML_GetModuleRoot((void *)root, "report");
     if (NULL == moduleRoot)
     {
-        CAT_LogError("Failed to get module root : report\n");
+        ATS_LogError("Failed to get module root : report\n");
         goto err;
     }
 
@@ -51,16 +51,16 @@ void XML_ReportModuleRead(CAT_Conf *cf, CONF_Report *out_data)
     node = moduleRoot->FirstChildElement("state");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: state!\n");
+        ATS_LogError("Node not found: state!\n");
         goto err;
     }
     if (!strcmp(node->FirstChild()->Value(), "on"))
     {
-        out_data->state = CAT_MODULE_ON;
+        out_data->state = ATS_MODULE_ON;
     }
     else
     {
-        out_data->state = CAT_MODULE_OFF;
+        out_data->state = ATS_MODULE_OFF;
     }
 
 
@@ -71,7 +71,7 @@ err:
 
 TiXmlElement *XML_LogModuleRoot(TiXmlElement *root);
 
-void XML_LogModuleRead(CAT_Conf *cf, CONF_Log *out_data)
+void XML_LogModuleRead(ATS_Conf *cf, CONF_Log *out_data)
 {
     TiXmlElement    *root       = NULL;
     TiXmlElement    *moduleRoot = NULL;
@@ -83,21 +83,21 @@ void XML_LogModuleRead(CAT_Conf *cf, CONF_Log *out_data)
     ret = doc.LoadFile();
     if (ret != true)
     {
-        CAT_LogError("Failed to load file: %s\n", cf->file);
+        ATS_LogError("Failed to load file: %s\n", cf->file);
         goto err;
     }
 
     root = doc.RootElement();
     if (NULL == root)
     {
-        CAT_LogError("Failed to get the root of file: %s\n", cf->file);
+        ATS_LogError("Failed to get the root of file: %s\n", cf->file);
         goto err;
     }
 
     moduleRoot = (TiXmlElement *)XML_GetModuleRoot((void *)root, "log");
     if (NULL == moduleRoot)
     {
-        CAT_LogError("Failed to get module root : log\n");
+        ATS_LogError("Failed to get module root : log\n");
         goto err;
     }
 
@@ -108,23 +108,23 @@ void XML_LogModuleRead(CAT_Conf *cf, CONF_Log *out_data)
     node = moduleRoot->FirstChildElement("state");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: state!\n");
+        ATS_LogError("Node not found: state!\n");
         goto err;
     }
     if (!strcmp(node->FirstChild()->Value(), "on"))
     {
-        out_data->state = CAT_MODULE_ON;
+        out_data->state = ATS_MODULE_ON;
     }
     else
     {
-        out_data->state = CAT_MODULE_OFF;
+        out_data->state = ATS_MODULE_OFF;
     }
 
     // 日志等级
     node = moduleRoot->FirstChildElement("level");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: level!\n");
+        ATS_LogError("Node not found: level!\n");
         goto err;
     }
     out_data->level = atoi(node->FirstChild()->Value());
@@ -133,7 +133,7 @@ void XML_LogModuleRead(CAT_Conf *cf, CONF_Log *out_data)
     node = moduleRoot->FirstChildElement("file");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: file!\n");
+        ATS_LogError("Node not found: file!\n");
         goto err;
     }
     strncpy(out_data->logFile, node->FirstChild()->Value(), OSA_NAME_MAX-1);
@@ -146,7 +146,7 @@ err:
 }
 
 
-void XML_GuiModuleRead(CAT_Conf *cf, CONF_Gui *out_data)
+void XML_GuiModuleRead(ATS_Conf *cf, CONF_Gui *out_data)
 {
     TiXmlElement    *root       = NULL;
     TiXmlElement    *moduleRoot = NULL;
@@ -158,21 +158,21 @@ void XML_GuiModuleRead(CAT_Conf *cf, CONF_Gui *out_data)
     ret = doc.LoadFile();
     if (ret != true)
     {
-        CAT_LogError("Failed to load file: %s\n", cf->file);
+        ATS_LogError("Failed to load file: %s\n", cf->file);
         goto err;
     }
 
     root = doc.RootElement();
     if (NULL == root)
     {
-        CAT_LogError("Failed to get the root of file: %s\n", cf->file);
+        ATS_LogError("Failed to get the root of file: %s\n", cf->file);
         goto err;
     }
 
     moduleRoot = (TiXmlElement *)XML_GetModuleRoot((void *)root, "gui");
     if (NULL == moduleRoot)
     {
-        CAT_LogError("Failed to get the module root of file: %s\n", cf->file);
+        ATS_LogError("Failed to get the module root of file: %s\n", cf->file);
         goto err;
     }
 
@@ -181,16 +181,16 @@ void XML_GuiModuleRead(CAT_Conf *cf, CONF_Gui *out_data)
     node = moduleRoot->FirstChildElement("state");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: state!\n");
+        ATS_LogError("Node not found: state!\n");
         goto err;
     }
     if (!strcmp(node->FirstChild()->Value(), "on"))
     {
-        out_data->state = CAT_MODULE_ON;
+        out_data->state = ATS_MODULE_ON;
     }
     else
     {
-        out_data->state = CAT_MODULE_OFF;
+        out_data->state = ATS_MODULE_OFF;
     }
 
     return;
@@ -200,7 +200,7 @@ err:
 }
 
 
-void XML_TestModuleRead(CAT_Conf *cf, CONF_Test *out_data)
+void XML_TestModuleRead(ATS_Conf *cf, CONF_Test *out_data)
 {
     TiXmlElement    *root       = NULL;
     TiXmlElement    *moduleRoot = NULL;
@@ -212,21 +212,21 @@ void XML_TestModuleRead(CAT_Conf *cf, CONF_Test *out_data)
     ret = doc.LoadFile();
     if (ret != true)
     {
-        CAT_LogError("Failed to load file: %s\n", cf->file);
+        ATS_LogError("Failed to load file: %s\n", cf->file);
         goto err;
     }
 
     root = doc.RootElement();
     if (NULL == root)
     {
-        CAT_LogError("Failed to get the root of file: %s\n", cf->file);
+        ATS_LogError("Failed to get the root of file: %s\n", cf->file);
         goto err;
     }
 
     moduleRoot = (TiXmlElement *)XML_GetModuleRoot((void *)root, "test");
     if (NULL == moduleRoot)
     {
-        CAT_LogError("Failed to get module root : test\n");
+        ATS_LogError("Failed to get module root : test\n");
         goto err;
     }
 
@@ -235,22 +235,22 @@ void XML_TestModuleRead(CAT_Conf *cf, CONF_Test *out_data)
     node = moduleRoot->FirstChildElement("state");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: state!\n");
+        ATS_LogError("Node not found: state!\n");
         goto err;
     }
     if (!strcmp(node->FirstChild()->Value(), "on"))
     {
-        out_data->state = CAT_MODULE_ON;
+        out_data->state = ATS_MODULE_ON;
     }
     else
     {
-        out_data->state = CAT_MODULE_OFF;
+        out_data->state = ATS_MODULE_OFF;
     }
 
     node = moduleRoot->FirstChildElement("templete");
     if (NULL == node)
     {
-        CAT_LogError("Node not found: templete!\n");
+        ATS_LogError("Node not found: templete!\n");
         goto err;
     }
     strncpy(out_data->testTemplete, node->FirstChild()->Value(), OSA_NAME_MAX-1);

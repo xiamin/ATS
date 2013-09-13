@@ -18,34 +18,34 @@
 #include "gui.h"
 #include "log.h"
 
-CAT_Conf  *g_conf;
+ATS_Conf  *g_conf;
 
 int main(int argc, char **argv)
 {   
-    g_conf = CAT_ConfInit(CAT_CONFIG_FILE);
+    g_conf = ATS_ConfInit(ATS_CONFIG_FILE);
     
     //  初始化日志模块
-    CAT_LogModuleInit();
+    ATS_LogModuleInit();
     
     //  初始化内存池模块
-    //CAT_MemPoolModuleInit();
+    //ATS_MemPoolModuleInit();
     
     // 初始化测试模块
-    CAT_TestModuleInit();
+    ATS_TestModuleInit();
     
     // 初始化报告模块
-    CAT_ReportModuleInit();
+    ATS_ReportModuleInit();
     
     // 初始化GUI模块
-    CAT_GuiModuleInit();
+    ATS_GuiModuleInit();
     
     // 初始化ERP模块
-    //CAT_ErpModuleInit();
+    //ATS_ErpModuleInit();
     
     
-    CAT_ModuleInitAll(argc, argv);
+    ATS_ModuleInitAll(argc, argv);
 
-    CAT_TestStartAll();
+    ATS_TestStartAll();
     
-    CAT_ConfExit(g_conf);
+    ATS_ConfExit(g_conf);
 }

@@ -6,7 +6,7 @@
  */
 
 
-void    CAT_GuiStart(int argc, char **argv)
+void    ATS_GuiStart(int argc, char **argv)
 {
     
 }

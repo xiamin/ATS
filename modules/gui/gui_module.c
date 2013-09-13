@@ -13,16 +13,16 @@
 #include "gui.h"
 
 
-static osa_err_t   guiConfRead(CAT_Conf *cf, void *out_data); 
-static osa_err_t   guiConfWrite(CAT_Conf *cf, void *data); 
-static osa_err_t   guiModuleEntry(CAT_Conf *cf, int argc, char **argv);
-static void        guiModuleExit(CAT_Conf *cf);
+static osa_err_t   guiConfRead(ATS_Conf *cf, void *out_data); 
+static osa_err_t   guiConfWrite(ATS_Conf *cf, void *data); 
+static osa_err_t   guiModuleEntry(ATS_Conf *cf, int argc, char **argv);
+static void        guiModuleExit(ATS_Conf *cf);
 static void        guiStart();
  
-static CAT_Module  guiModule =
+static ATS_Module  guiModule =
 {
     .name   = "gui",
-    .state  = CAT_MODULE_ON,
+    .state  = ATS_MODULE_ON,
     .cf     =
     {
         .open   = NULL,
@@ -37,59 +37,59 @@ static CAT_Module  guiModule =
 
 
 
-osa_err_t   CAT_GuiModuleInit()
+osa_err_t   ATS_GuiModuleInit()
 {
-    CAT_LogDebug("Initialize test module\n");
+    ATS_LogDebug("Initialize test module\n");
     
-    CAT_ModuleRegister(&guiModule);
+    ATS_ModuleRegister(&guiModule);
     
     return OSA_ERR_OK;
 }
 
-void    CAT_GuiModuleExit()
+void    ATS_GuiModuleExit()
 {
-    CAT_LogDebug("Exit test module\n");
+    ATS_LogDebug("Exit test module\n");
     
-    CAT_ModuleUnregister(&guiModule);
+    ATS_ModuleUnregister(&guiModule);
 }
 
 
 
 
-static osa_err_t   guiConfRead(CAT_Conf *cf, void *out_data)
+static osa_err_t   guiConfRead(ATS_Conf *cf, void *out_data)
 {
     XML_GuiModuleRead(cf, out_data);
     return OSA_ERR_OK;
 }
 
-static osa_err_t   guiConfWrite(CAT_Conf *cf, void *data)
+static osa_err_t   guiConfWrite(ATS_Conf *cf, void *data)
 {
     
 }
 
-static osa_err_t   guiModuleEntry(CAT_Conf *cf, int argc, char **argv)
+static osa_err_t   guiModuleEntry(ATS_Conf *cf, int argc, char **argv)
 {
-    CAT_LogDebug("Enter GUI module!\n");
+    ATS_LogDebug("Enter GUI module!\n");
     
     CONF_Gui   guiConf;
     
-    CAT_ConfSetModuleConf(cf, &guiModule);
-    CAT_ConfRead(cf, &guiConf);
+    ATS_ConfSetModuleConf(cf, &guiModule);
+    ATS_ConfRead(cf, &guiConf);
     
     
     // 如果模块为关闭状态，则不处理
-    if (guiConf.state == CAT_MODULE_OFF)
+    if (guiConf.state == ATS_MODULE_OFF)
     {
         return OSA_ERR_OK;
     }
     else
     {
-        CAT_GuiStart(argc, argv);
+        ATS_GuiStart(argc, argv);
         return OSA_ERR_OK;
     }
 }
 
-static void    guiModuleExit(CAT_Conf *cf)
+static void    guiModuleExit(ATS_Conf *cf)
 {
     
 }

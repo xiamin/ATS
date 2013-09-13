@@ -19,15 +19,15 @@ extern "C" {
 #endif
 
 
-static osa_err_t   memPoolModuleEntry(CAT_Conf *cf, int argc, char **argv);
-static void        memPoolModuleExit(CAT_Conf *cf);
+static osa_err_t   memPoolModuleEntry(ATS_Conf *cf, int argc, char **argv);
+static void        memPoolModuleExit(ATS_Conf *cf);
 
 
  
-static CAT_Module  memPoolModule =
+static ATS_Module  memPoolModule =
 {
     .name   = "memPool",
-    .state  = CAT_MODULE_ON,
+    .state  = ATS_MODULE_ON,
     .cf     =
     {
         .open   = NULL,
@@ -42,29 +42,29 @@ static CAT_Module  memPoolModule =
 
 
 
-osa_err_t   CAT_MemPoolModuleInit()
+osa_err_t   ATS_MemPoolModuleInit()
 {
-    CAT_LogDebug("Initialize memPool module\n");
+    ATS_LogDebug("Initialize memPool module\n");
     
-    CAT_ModuleRegister(&memPoolModule);
+    ATS_ModuleRegister(&memPoolModule);
     
     return OSA_ERR_OK;
 }
 
-void    CAT_MemPoolModuleExit()
+void    ATS_MemPoolModuleExit()
 {
-    CAT_LogDebug("Exit memPool module\n");
+    ATS_LogDebug("Exit memPool module\n");
     
-    CAT_ModuleUnregister(&memPoolModule);
+    ATS_ModuleUnregister(&memPoolModule);
 }
 
 
-osa_err_t   memPoolModuleEntry(CAT_Conf *cf, int argc, char **argv)
+osa_err_t   memPoolModuleEntry(ATS_Conf *cf, int argc, char **argv)
 {
-    CAT_LogDebug("Entry TEST module!\n");
+    ATS_LogDebug("Entry TEST module!\n");
 }
 
-void    memPoolModuleExit(CAT_Conf *cf)
+void    memPoolModuleExit(ATS_Conf *cf)
 { 
 }
 

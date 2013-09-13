@@ -18,13 +18,13 @@ extern "C" {
 #endif
 
 
-CAT_TestPoint   *dummyGetTPObj();
+ATS_TestPoint   *dummyGetTPObj();
 
 
 typedef struct _SLOT
 {
     char            *name;                      // 名字
-    CAT_TestPoint   *(*getTestPoint)();          // 测试点结构体
+    ATS_TestPoint   *(*getTestPoint)();          // 测试点结构体
 }TEST_NameSlot;
 
 
@@ -34,11 +34,11 @@ typedef struct _SLOT
 // 系统中支持的测试表
 TEST_NameSlot    g_testPointTable[] =
 {
-#ifdef CAT_USING_VERSION_TEST
+#ifdef ATS_USING_VERSION_TEST
     NAME_SLOT("VersionTest", testGetTPObj),
 #endif
 
-#ifdef CAT_USING_DUMMY_TEST
+#ifdef ATS_USING_DUMMY_TEST
     NAME_SLOT("DummyTest", dummyGetTPObj),
 #endif
 };
@@ -47,7 +47,7 @@ TEST_NameSlot    g_testPointTable[] =
 
 
 
-static inline CAT_TestPoint   *TEST_GetSlotTestPoint(const char *name)
+static inline ATS_TestPoint   *TEST_GetSlotTestPoint(const char *name)
 {
     osa_uint32_t i;
     for (i=0; i<TEST_POINT_ELE_NUM; i++)

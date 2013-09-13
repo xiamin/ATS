@@ -29,17 +29,17 @@ struct _Log
 
 static struct _Log  log;
 
-static osa_err_t   logConfRead(CAT_Conf *cf, void *out_data); 
-static osa_err_t   logConfWrite(CAT_Conf *cf, void *data); 
-static osa_err_t   logModuleEntry(CAT_Conf *cf, int argc, char **argv);
-static void        logModuleExit(CAT_Conf *cf);
+static osa_err_t   logConfRead(ATS_Conf *cf, void *out_data); 
+static osa_err_t   logConfWrite(ATS_Conf *cf, void *data); 
+static osa_err_t   logModuleEntry(ATS_Conf *cf, int argc, char **argv);
+static void        logModuleExit(ATS_Conf *cf);
 
 
  
-static CAT_Module  logModule =
+static ATS_Module  logModule =
 {
     .name   = "log",
-    .state  = CAT_MODULE_ON,
+    .state  = ATS_MODULE_ON,
     .cf     =
     {
         .open   = NULL,
@@ -54,56 +54,56 @@ static CAT_Module  logModule =
 
 
 
-osa_err_t   CAT_LogModuleInit()
+osa_err_t   ATS_LogModuleInit()
 {
     // 日志文件没有打开，先关闭日志
-    CAT_LogSetLevel(CAT_LOG_OFF);
+    ATS_LogSetLevel(ATS_LOG_OFF);
 
-    CAT_LogDebug("Initialize log module\n");
+    ATS_LogDebug("Initialize log module\n");
     
-    CAT_ModuleRegister(&logModule);
+    ATS_ModuleRegister(&logModule);
     
     return OSA_ERR_OK;
 }
 
-void    CAT_LogModuleExit()
+void    ATS_LogModuleExit()
 {
-    CAT_LogDebug("Exit log module\n");
+    ATS_LogDebug("Exit log module\n");
     
-    CAT_ModuleUnregister(&logModule);
+    ATS_ModuleUnregister(&logModule);
 }
 
 
-osa_err_t   logConfRead(CAT_Conf *cf, void *out_data)
+osa_err_t   logConfRead(ATS_Conf *cf, void *out_data)
 {
     XML_LogModuleRead(cf, out_data);
     return OSA_ERR_OK;
 }
 
-osa_err_t   logConfWrite(CAT_Conf *cf, void *data)
+osa_err_t   logConfWrite(ATS_Conf *cf, void *data)
 {
     
 }
 
-osa_err_t   logModuleEntry(CAT_Conf *cf, int argc, char **argv)
+osa_err_t   logModuleEntry(ATS_Conf *cf, int argc, char **argv)
 {
-    CAT_LogDebug("Entry TEST module!\n");
+    ATS_LogDebug("Entry TEST module!\n");
     
     osa_err_t   err;
     CONF_Log   logConf;
     
-    CAT_ConfSetModuleConf(cf, &logModule);
-    CAT_ConfRead(cf, &logConf);
+    ATS_ConfSetModuleConf(cf, &logModule);
+    ATS_ConfRead(cf, &logConf);
     
 
-    if (logConf.state == CAT_MODULE_OFF)
+    if (logConf.state == ATS_MODULE_OFF)
     {
-        CAT_LogSetLevel(CAT_LOG_OFF);
+        ATS_LogSetLevel(ATS_LOG_OFF);
         return OSA_ERR_OK;
     }
     else
     {
-        CAT_LogSetLevel(logConf.level);
+        ATS_LogSetLevel(logConf.level);
         
 #if 0
         err = osa_file_open(&log.logFile, logConf.logFile, OSA_FMODE_APPEND);
@@ -116,25 +116,25 @@ osa_err_t   logModuleEntry(CAT_Conf *cf, int argc, char **argv)
     }
 }
 
-void    logModuleExit(CAT_Conf *cf)
+void    logModuleExit(ATS_Conf *cf)
 {
     
 }
 
 
-void    CAT_LogSetLevel(osa_uint8_t level)
+void    ATS_LogSetLevel(osa_uint8_t level)
 {
     log.logLevel = level;
 }
 
 
-osa_uint8_t CAT_LogGetLevel()
+osa_uint8_t ATS_LogGetLevel()
 {
     return log.logLevel;
 }
 
 
-void CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...)
+void ATS_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...)
 {
     if (logType > log.logLevel)
     {
@@ -149,27 +149,27 @@ void CAT_Log(osa_uint8_t logType, char *file, osa_uint32_t line, char *fmt, ...)
     
     switch (logType)
     {
-        case CAT_LOG_FATAL:
+        case ATS_LOG_FATAL:
         {
             sz += sprintf(buf, "[FATAL] ");
             break;
         }
-        case CAT_LOG_ERROR:
+        case ATS_LOG_ERROR:
         {
             sz += sprintf(buf, "[ERROR] ");
             break;
         }
-        case CAT_LOG_WARN:
+        case ATS_LOG_WARN:
         {
             sz += sprintf(buf, "[WARN] ");
             break;
         }
-        case CAT_LOG_INFO:
+        case ATS_LOG_INFO:
         {
             sz += sprintf(buf, "[INFO] ");
             break;
         }
-        case CAT_LOG_DEBUG:
+        case ATS_LOG_DEBUG:
         {
             sz += sprintf(buf, "[DEBUG]<%s, %d> ", file, line);
             break;

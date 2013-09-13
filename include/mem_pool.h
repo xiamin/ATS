@@ -14,7 +14,7 @@
 #include "cat.h"
 
 
-struct _CAT_MEMORY_POOL
+struct _ATS_MEMORY_POOL
 {
     osa_list_t      list;           // 内存池链表
     
@@ -23,16 +23,16 @@ struct _CAT_MEMORY_POOL
 };
 
 
-CAT_MemPool *CAT_MemPoolNew();
-void        CAT_MemPoolDelete();
+ATS_MemPool *ATS_MemPoolNew();
+void        ATS_MemPoolDelete();
 
 
-osa_err_t   CAT_MemPoolModuleInit();
-void        CAT_MemPoolModuleExit();
+osa_err_t   ATS_MemPoolModuleInit();
+void        ATS_MemPoolModuleExit();
 
 
-void        *CAT_MemAlloc(osa_size_t size);
-void        CAT_MemFree(void *ptr);
+void        *ATS_MemAlloc(osa_size_t size);
+void        ATS_MemFree(void *ptr);
 
 
 #endif

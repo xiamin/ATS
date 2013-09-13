@@ -3,7 +3,7 @@
 
 
 
-#define CAT_USING_DUMMY_TEST
+#define ATS_USING_DUMMY_TEST
 
 
 #endif

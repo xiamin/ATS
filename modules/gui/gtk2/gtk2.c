@@ -12,7 +12,7 @@
 
 void startTest(GtkWidget *widget,gpointer *data)
 {
-    CAT_TestStartAll();
+    ATS_TestStartAll();
 }
 
 
@@ -46,7 +46,7 @@ void gtkRoutine(int argc, char **argv)
 }
 
 
-void    CAT_GuiStart(int argc, char **argv)
+void    ATS_GuiStart(int argc, char **argv)
 {
 
     gtkRoutine(argc, argv); 

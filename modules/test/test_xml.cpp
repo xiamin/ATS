@@ -37,7 +37,7 @@ osa_err_t   XML_ParseAll(const char *file)
     TiXmlDocument   *doc = new TiXmlDocument(file);
     if (doc->LoadFile() != true)
     {
-        CAT_LogError("Failed to load templete file : %s\n", file);
+        ATS_LogError("Failed to load templete file : %s\n", file);
         
         return OSA_ERR_ERR;
     }
@@ -45,7 +45,7 @@ osa_err_t   XML_ParseAll(const char *file)
     TiXmlElement    *root = doc->RootElement();
     if (!root)
     {
-        CAT_LogError("Unable to get xml root : %s!\n", file);
+        ATS_LogError("Unable to get xml root : %s!\n", file);
 
         return OSA_ERR_ERR;
     }
@@ -113,15 +113,15 @@ static osa_err_t    _ParseDummy(TiXmlElement *root)
 {
 
     osa_uint32_t    i;
-    CAT_TestPoint   *p = NULL;
+    ATS_TestPoint   *p = NULL;
 
 
     p = TEST_GetSlotTestPoint("DummyTest");
     
     if (p)
     {
-        CAT_TestCaseBoxAssociate(&p->testCase, 0, 0, NULL);
-        CAT_TestPointRegister(p);
+        ATS_TestCaseBoxAssociate(&p->testCase, 0, 0, NULL);
+        ATS_TestPointRegister(p);
     }
 
     return OSA_ERR_OK;

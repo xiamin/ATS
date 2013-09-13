@@ -11,17 +11,17 @@
 #include "log.h"
 
 // 模块容器
-CAT_Module  *mBox[CAT_MODULE_MAX] = {NULL};
+ATS_Module  *mBox[ATS_MODULE_MAX] = {NULL};
 
 
-CAT_Module *CAT_ModuleFind(const char *name)
+ATS_Module *ATS_ModuleFind(const char *name)
 {
     OSA_ASSERT(name != NULL);
     
-    CAT_Module  *m = NULL;
+    ATS_Module  *m = NULL;
     osa_uint32_t    i;
     
-    for (i=0; i<CAT_MODULE_MAX; i++)
+    for (i=0; i<ATS_MODULE_MAX; i++)
     {
         if (mBox[i] && !strcmp(mBox[i]->name, name))
         {
@@ -30,25 +30,25 @@ CAT_Module *CAT_ModuleFind(const char *name)
         }
     }
     
-    if (i == CAT_MODULE_MAX)
+    if (i == ATS_MODULE_MAX)
     {
-        CAT_LogWarn("No module found : %s\n", name);
+        ATS_LogWarn("No module found : %s\n", name);
     }
     
     return m;
 }
 
 
-osa_err_t CAT_ModuleRegister(CAT_Module *module)
+osa_err_t ATS_ModuleRegister(ATS_Module *module)
 {
-    CAT_Module  *p = NULL;
+    ATS_Module  *p = NULL;
     osa_err_t   err;
     
-    CAT_LogInfo("Register module: %s\n", module->name);
+    ATS_LogInfo("Register module: %s\n", module->name);
     
-    if ((p = CAT_ModuleFind(module->name)) != NULL)
+    if ((p = ATS_ModuleFind(module->name)) != NULL)
     {
-        CAT_LogInfo("Replace module: %s\n", module->name);
+        ATS_LogInfo("Replace module: %s\n", module->name);
         
         p = module;
         
@@ -58,7 +58,7 @@ osa_err_t CAT_ModuleRegister(CAT_Module *module)
     {
         osa_uint32_t    i;
         
-        for (i=0; i<CAT_MODULE_MAX; i++)
+        for (i=0; i<ATS_MODULE_MAX; i++)
         {
             if (!mBox[i])
             {
@@ -68,9 +68,9 @@ osa_err_t CAT_ModuleRegister(CAT_Module *module)
             }
         }
         
-        if (i == CAT_MODULE_MAX)
+        if (i == ATS_MODULE_MAX)
         {
-            CAT_LogError("No space !\n");
+            ATS_LogError("No space !\n");
             err = OSA_ERR_ERR;
         }
     }
@@ -79,13 +79,13 @@ osa_err_t CAT_ModuleRegister(CAT_Module *module)
 }
 
 
-osa_err_t CAT_ModuleUnregister(CAT_Module *module)
+osa_err_t ATS_ModuleUnregister(ATS_Module *module)
 {
-    CAT_Module  *p = NULL;
+    ATS_Module  *p = NULL;
     
-    CAT_LogInfo("Unregister module : %s\n", module->name);
+    ATS_LogInfo("Unregister module : %s\n", module->name);
     
-    if ((p = CAT_ModuleFind(module->name)) != NULL)
+    if ((p = ATS_ModuleFind(module->name)) != NULL)
     {
         p = NULL;
     }
@@ -94,21 +94,21 @@ osa_err_t CAT_ModuleUnregister(CAT_Module *module)
 }
 
 
-void    CAT_ModuleInitAll(int argc, char **argv)
+void    ATS_ModuleInitAll(int argc, char **argv)
 {
     osa_uint32_t i;
     osa_err_t   err;
     
-    for (i=0; i<CAT_MODULE_MAX; i++)
+    for (i=0; i<ATS_MODULE_MAX; i++)
     {
         if (mBox[i] && mBox[i]->entry)
         {
-            CAT_LogInfo("Initialize module: %s\n", mBox[i]->name);
+            ATS_LogInfo("Initialize module: %s\n", mBox[i]->name);
   
             err = mBox[i]->entry(g_conf, argc, argv);
             if (err != OSA_ERR_OK)
             {
-                CAT_LogError("Failed to initialize module : %s\n", mBox[i]->name);
+                ATS_LogError("Failed to initialize module : %s\n", mBox[i]->name);
             }
         }
     }

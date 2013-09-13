@@ -26,7 +26,7 @@ LOCAL_SHARED_LIBRARIES :=
 LOCAL_ARLIBS           :=
 LOCAL_LDLIBS           :=ldl
 
-LOCAL_CFLAGS           :=-fno-builtin -DCAT_CONFIG_FILE=\"$(PROJECT_TOP_DIR)/conf/CAT.xml\"
+LOCAL_CFLAGS           :=-fno-builtin -DATS_CONFIG_FILE=\"$(PROJECT_TOP_DIR)/conf/CAT.xml\"
 LOCAL_CXXFLAGS         :=
 
 gtk_ldflags:=`pkg-config --libs gtk+-2.0`

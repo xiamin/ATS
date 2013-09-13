@@ -17,39 +17,39 @@ extern "C" {
 
 enum
 {
-    CAT_MODULE_OFF = 0,
-    CAT_MODULE_ON = 1,
+    ATS_MODULE_OFF = 0,
+    ATS_MODULE_ON = 1,
 };
 
 
-struct _CAT_MODULE_CONF
+struct _ATS_MODULE_CONF
 {
-    CAT_Conf    *(*open)(const char *file);                            // 打开模块配置文件
-    void        (*close)(CAT_Conf *cf);                         // 关闭模块配置文件
-    osa_err_t   (*read)(CAT_Conf *cf, void *out_data);          // 读取配置文件
-    osa_err_t   (*write)(CAT_Conf *cf, void *data);             // 写配置文件
-    osa_err_t   (*ctrl)(CAT_Conf *cf, osa_uint32_t cmd, void *arg);     // 控制
+    ATS_Conf    *(*open)(const char *file);                            // 打开模块配置文件
+    void        (*close)(ATS_Conf *cf);                         // 关闭模块配置文件
+    osa_err_t   (*read)(ATS_Conf *cf, void *out_data);          // 读取配置文件
+    osa_err_t   (*write)(ATS_Conf *cf, void *data);             // 写配置文件
+    osa_err_t   (*ctrl)(ATS_Conf *cf, osa_uint32_t cmd, void *arg);     // 控制
 };
 
 
 
-struct _CAT_MODULE
+struct _ATS_MODULE
 {
     char            name[OSA_NAME_MAX];                 // 模块名字
     osa_uint8_t     state;                              // 模块状态，ON或者OFF
-    CAT_ModuleConf  cf;                                 // 模块配置文件
+    ATS_ModuleConf  cf;                                 // 模块配置文件
     
-    osa_err_t       (*entry)(CAT_Conf *conf, int argc, char **argv);     // 模块入口
-    void            (*exit)(CAT_Conf *conf);      // 模块出口
+    osa_err_t       (*entry)(ATS_Conf *conf, int argc, char **argv);     // 模块入口
+    void            (*exit)(ATS_Conf *conf);      // 模块出口
 };
 
-#define CAT_MODULE_MAX      10
+#define ATS_MODULE_MAX      10
 
-CAT_Module      *CAT_ModuleFind(const char *name);
-osa_err_t       CAT_ModuleRegister(CAT_Module *module);
-osa_err_t       CAT_ModuleUnregister(CAT_Module *module);
+ATS_Module      *ATS_ModuleFind(const char *name);
+osa_err_t       ATS_ModuleRegister(ATS_Module *module);
+osa_err_t       ATS_ModuleUnregister(ATS_Module *module);
 
-void            CAT_ModuleInitAll(int argc, char **argv);
+void            ATS_ModuleInitAll(int argc, char **argv);
 
 #ifdef __cplusplus
 }

@@ -23,17 +23,17 @@ extern "C" {
 static osa_list_t   testPointList = {&testPointList, &testPointList};
 
 
-CAT_TestPoint   *CAT_TestPointFind(const char *name)
+ATS_TestPoint   *ATS_TestPointFind(const char *name)
 {
     OSA_ASSERT(name != NULL);
     
-    CAT_TestPoint   *node = NULL;
+    ATS_TestPoint   *node = NULL;
     
     osa_list_t  *l = NULL;
     
     for (l=testPointList.next; l != &testPointList; l=l->next)
     {
-        node = osa_list_entry(l, CAT_TestPoint, list);
+        node = osa_list_entry(l, ATS_TestPoint, list);
         
         // 找到
         if (!strcmp(node->name, name))
@@ -46,7 +46,7 @@ CAT_TestPoint   *CAT_TestPointFind(const char *name)
 }
 
 
-osa_err_t   CAT_TestPointRegister(CAT_TestPoint *self)
+osa_err_t   ATS_TestPointRegister(ATS_TestPoint *self)
 {
     if (!self)
     {
@@ -55,17 +55,17 @@ osa_err_t   CAT_TestPointRegister(CAT_TestPoint *self)
 
     self->report = &g_reportFile;
     
-    CAT_TestPoint   *p = NULL;
+    ATS_TestPoint   *p = NULL;
     
-    if ((p = CAT_TestPointFind(self->name)) != NULL)
+    if ((p = ATS_TestPointFind(self->name)) != NULL)
     {
-        CAT_LogWarn("Replace test point : %s\n", self->name);
+        ATS_LogWarn("Replace test point : %s\n", self->name);
         
         p = self;
     }
     else
     {
-        CAT_LogInfo("Add new test point : %s\n", self->name);
+        ATS_LogInfo("Add new test point : %s\n", self->name);
         
         osa_list_insert_after(testPointList.next, &self->list);    
     }
@@ -75,18 +75,18 @@ osa_err_t   CAT_TestPointRegister(CAT_TestPoint *self)
 }
 
 
-osa_err_t   CAT_TestPointUnregister(CAT_TestPoint *self)
+osa_err_t   ATS_TestPointUnregister(ATS_TestPoint *self)
 {
     if (!self)
     {
         return OSA_ERR_ERR;
     }
     
-    CAT_TestPoint   *p = NULL;
+    ATS_TestPoint   *p = NULL;
     
-    if ((p = CAT_TestPointFind(self->name)) != NULL)
+    if ((p = ATS_TestPointFind(self->name)) != NULL)
     {
-        CAT_LogInfo("Remove test !\n");
+        ATS_LogInfo("Remove test !\n");
         
         osa_list_remove(&p->list);
     }
@@ -94,28 +94,28 @@ osa_err_t   CAT_TestPointUnregister(CAT_TestPoint *self)
     return OSA_ERR_OK;
 }
 
-osa_err_t   CAT_TestStartAll()
+osa_err_t   ATS_TestStartAll()
 {   
-    CAT_TestPoint   *node = NULL;
+    ATS_TestPoint   *node = NULL;
     
     osa_list_t  *l = NULL;
     
     for (l=testPointList.next; l != &testPointList; l=l->next)
     {
-        node = osa_list_entry(l, CAT_TestPoint, list);
+        node = osa_list_entry(l, ATS_TestPoint, list);
         
         if (node->startTest)
         {
             node->result = node->startTest(&node->testCase);
 
-            if (node->result == CAT_TEST_SUCCESS)
+            if (node->result == ATS_TEST_SUCCESS)
             {
                 if (node->successFunc)
                 {
                     node->successFunc(node);
                 }
             }
-            else if (node->result == CAT_TEST_FAILED)
+            else if (node->result == ATS_TEST_FAILED)
             {
                 if (node->failedFunc)
                 {
@@ -129,14 +129,14 @@ osa_err_t   CAT_TestStartAll()
 }
 
 
-osa_err_t   CAT_TestParseTemplete(const char *file)
+osa_err_t   ATS_TestParseTemplete(const char *file)
 {
     if (!file)
     {
         return OSA_ERR_ERR;
     }
     
-    CAT_LogInfo("Start parse test templete file !\n");
+    ATS_LogInfo("Start parse test templete file !\n");
 
     XML_ParseAll(file);
     
@@ -144,18 +144,18 @@ osa_err_t   CAT_TestParseTemplete(const char *file)
 }
 
 
-CAT_TestPoint   *CAT_TestPointNew(const char *name)
+ATS_TestPoint   *ATS_TestPointNew(const char *name)
 {
-    CAT_TestPoint   *p = (CAT_TestPoint *)malloc(sizeof(CAT_TestPoint));
+    ATS_TestPoint   *p = (ATS_TestPoint *)malloc(sizeof(ATS_TestPoint));
     
     if (!p)
     {
-        CAT_LogError("No memory !\n");
+        ATS_LogError("No memory !\n");
         
         return NULL;
     }
     
-    memset(p, 0, sizeof(CAT_TestPoint));
+    memset(p, 0, sizeof(ATS_TestPoint));
     
     strncpy(p->name, name, OSA_NAME_MAX-1);
     
@@ -163,7 +163,7 @@ CAT_TestPoint   *CAT_TestPointNew(const char *name)
 }
 
 
-void    CAT_TestPointDelete(CAT_TestPoint *self)
+void    ATS_TestPointDelete(ATS_TestPoint *self)
 {
     if (!self)
     {
@@ -173,12 +173,12 @@ void    CAT_TestPointDelete(CAT_TestPoint *self)
     free(self);
 }
 
-void    CAT_TestReleaseResource()
+void    ATS_TestReleaseResource()
 {
     
 }
 
-void    CAT_TestCaseBoxAssociate(CAT_TestCaseBox *self, osa_uint32_t num, osa_uint32_t size, void *priv)
+void    ATS_TestCaseBoxAssociate(ATS_TestCaseBox *self, osa_uint32_t num, osa_uint32_t size, void *priv)
 {
     self->caseNum   = num;
     self->caseSize  = size;

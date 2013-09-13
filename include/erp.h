@@ -5,12 +5,12 @@
  *
  */
 
-#ifndef CAT_ERP_H_
-#define CAT_ERP_H_
+#ifndef ATS_ERP_H_
+#define ATS_ERP_H_
 
 #include "osa.h"
 
-struct _CAT_ERP_INTERFACE
+struct _ATS_ERP_INTERFACE
 {
     osa_uint8_t     (*init)();              // 初始化ERP
     void            (*exit)();              // 退出ERP
@@ -20,4 +20,4 @@ struct _CAT_ERP_INTERFACE
 
 
 
-#endif /* CAT_ERP_H_ */
+#endif /* ATS_ERP_H_ */

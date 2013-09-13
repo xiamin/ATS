@@ -5,24 +5,24 @@
  *
  */
 
-#ifndef CAT_REPORT_H_
-#define CAT_REPORT_H_
+#ifndef ATS_REPORT_H_
+#define ATS_REPORT_H_
 
 #include "osa.h"
 
-typedef struct _CAT_REPORT_INTERFACE
+typedef struct _ATS_REPORT_INTERFACE
 {
     void        (*open)(const char *file);
     void        (*close)();
     void        (*write)();
     void        (*read)();
-}CAT_Report;
+}ATS_Report;
 
 
-osa_err_t   CAT_ReportModuleInit();
-void        CAT_ReportModuleExit();
+osa_err_t   ATS_ReportModuleInit();
+void        ATS_ReportModuleExit();
 
 
-extern CAT_Report   g_reportFile;
+extern ATS_Report   g_reportFile;
 
-#endif /* CAT_REPORT_H_ */
+#endif /* ATS_REPORT_H_ */
