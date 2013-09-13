@@ -50,8 +50,8 @@ typedef struct
 
 typedef struct
 {
-    TEST_DATA_IN    osa_uint32_t    dummyIn;
-    TEST_EXPECT_OUT osa_uint32_t    dummyExpOut;
+    TEST_DATA_IN    char    dummyIn[10];
+    TEST_EXPECT_OUT char    dummyExpOut[10];
     TEST_REAL_OUT   osa_uint32_t    dummyRealOut;
 }TEST_Dummy;
 

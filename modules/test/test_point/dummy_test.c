@@ -15,9 +15,9 @@
 #define     TEST_DEFAULT_PRIORITY       100
 
 
-ATS_TestResult  dummyTestStart(ATS_TestCaseBox *testCase);       // 开始测试
-void            dummySuccessCall(ATS_TestPoint *self);                 // 测试成功后调用
-void            dummyFailedCall(ATS_TestPoint *self);                  // 测试失败后调用
+ATS_TestResult  dummyTestStart(void *testCase);                 // 开始测试
+void            dummySuccessCall(ATS_TestPoint *self);          // 测试成功后调用
+void            dummyFailedCall(ATS_TestPoint *self);           // 测试失败后调用
 
 
 static ATS_TestPoint   dummyTestPoint = 
@@ -32,11 +32,15 @@ static ATS_TestPoint   dummyTestPoint =
 };
 
 
-ATS_TestResult  dummyTestStart(ATS_TestCaseBox *testCase)
+ATS_TestResult  dummyTestStart(void *testCase)
 {
     ATS_LogInfo("start test dummy module!\n");
     
-    return ATS_TEST_FAILED;
+    TEST_Dummy  *d = (TEST_Dummy *)testCase;
+    
+    printf("in : %s, out: %s\n", d->dummyIn, d->dummyExpOut);
+    
+    return ATS_TEST_SUCCESS;
 }
 
 

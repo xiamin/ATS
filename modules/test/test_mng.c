@@ -98,7 +98,13 @@ osa_err_t   ATS_TestStartAll()
 {   
     ATS_TestPoint   *node = NULL;
     
+    // 测试用例数据指针
+    // 此处需要使用指向char数据的指针，char指针每次递增1个字节，不能选择其他类型的指针
+    osa_uint8_t     *testCasePtr = NULL;
+    
+    
     osa_list_t  *l = NULL;
+    osa_uint32_t    i;
     
     for (l=testPointList.next; l != &testPointList; l=l->next)
     {
@@ -106,20 +112,29 @@ osa_err_t   ATS_TestStartAll()
         
         if (node->startTest)
         {
-            node->result = node->startTest(&node->testCase);
+            // 重复测试次数等于testCse.caseNum;
+            for (i=0; i<node->testCaseBox.caseNum; i++)
+            {
+                ATS_LogInfo("Test case : %d\n", i+1);
+                
+                // 获取每一组测试用例数据的首地址
+                testCasePtr = node->testCaseBox.privData + i*node->testCaseBox.caseSize;
+                
+                node->result = node->startTest((void *)testCasePtr);
 
-            if (node->result == ATS_TEST_SUCCESS)
-            {
-                if (node->successFunc)
+                if (node->result == ATS_TEST_SUCCESS)
                 {
-                    node->successFunc(node);
+                    if (node->successFunc)
+                    {
+                        node->successFunc(node);
+                    }
                 }
-            }
-            else if (node->result == ATS_TEST_FAILED)
-            {
-                if (node->failedFunc)
+                else if (node->result == ATS_TEST_FAILED)
                 {
-                    node->failedFunc(node);
+                    if (node->failedFunc)
+                    {
+                        node->failedFunc(node);
+                    }
                 }
             }
         }

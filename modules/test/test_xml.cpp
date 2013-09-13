@@ -107,20 +107,33 @@ static osa_err_t   _ParsePtz(TiXmlElement *root)
     
 }
 
+struct xx
+{
+    int a,b;
+};
 
 
+
+static TEST_Dummy  dummy[3];
 static osa_err_t    _ParseDummy(TiXmlElement *root)
 {
-
     osa_uint32_t    i;
     ATS_TestPoint   *p = NULL;
 
-
     p = TEST_GetSlotTestPoint("DummyTest");
+    
+    strcpy(dummy[0].dummyIn, "hello");
+    strcpy(dummy[0].dummyExpOut, "world");
+    
+    strcpy(dummy[1].dummyIn, "test");
+    strcpy(dummy[1].dummyExpOut, "first");
+    
+    strcpy(dummy[2].dummyIn, "second");
+    strcpy(dummy[2].dummyExpOut, "third");
     
     if (p)
     {
-        ATS_TestCaseBoxAssociate(&p->testCase, 0, 0, NULL);
+        ATS_TestCaseBoxAssociate(&p->testCaseBox, 3, sizeof(TEST_Dummy), (void *)dummy);
         ATS_TestPointRegister(p);
     }
 

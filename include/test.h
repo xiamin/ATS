@@ -45,15 +45,15 @@ struct _ATS_TEST_POINT
 {
     char            *name;                      // 测试点名字
     osa_uint32_t    priority;                   // 测试优先级，数字越小优先级越大
-    ATS_TestCaseBox testCase;                   // 测试用例集
+    ATS_TestCaseBox testCaseBox;                // 测试用例容器
     ATS_TestResult  result;                     // 测试结果
     
     osa_list_t      list;                       // 链表
     
-    ATS_TestResult  (*startTest)(ATS_TestCaseBox *testCase);       // 开始测试
+    ATS_TestResult  (*startTest)(void *testCase);               // 开始测试
     void            (*stopTest)();                              // 停止测试, 现在没有使用
-    void            (*successFunc)(ATS_TestPoint *self);                 // 测试成功后调用
-    void            (*failedFunc)(ATS_TestPoint *self);                  // 测试失败后调用
+    void            (*successFunc)(ATS_TestPoint *self);        // 测试成功后调用
+    void            (*failedFunc)(ATS_TestPoint *self);         // 测试失败后调用
 
     ATS_Report      *report;                    // 报告
 };
