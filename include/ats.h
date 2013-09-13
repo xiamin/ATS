@@ -16,6 +16,7 @@
 typedef struct _ATS_MODULE_CONF     ATS_ModuleConf;
 typedef struct _ATS_CONF            ATS_Conf;
 typedef struct _ATS_MODULE          ATS_Module;
+typedef struct _ATS_TEST_POINT_OPS  ATS_TestPointOps;
 typedef struct _ATS_TEST_POINT      ATS_TestPoint;
 typedef struct _ATS_TEST_CASE_BOX   ATS_TestCaseBox;
 typedef struct _ATS_MEMORY_POOL     ATS_MemPool;

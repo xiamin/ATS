@@ -24,11 +24,12 @@ static ATS_TestPoint   dummyTestPoint =
 {
     .name       = "dummyTest",
     .priority   = TEST_DEFAULT_PRIORITY,
-    .result     = ATS_TEST_FAILED,
+    .begin      = NULL,
     .startTest  = dummyTestStart,
     .stopTest   = NULL,
     .successFunc= dummySuccessCall,
     .failedFunc = dummyFailedCall,
+    .end        = NULL,
 };
 
 

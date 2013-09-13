@@ -18,8 +18,8 @@ extern "C" {
 #endif
 
 
-ATS_TestPoint   *dummyGetTPObj();
 
+#define TEST_POINT_ELE_NUM      (sizeof(g_testPointTable)/sizeof(g_testPointTable[0]))
 
 typedef struct _SLOT
 {
@@ -30,6 +30,9 @@ typedef struct _SLOT
 
 #define NAME_SLOT(name, slot)   {name, slot}
 
+
+
+ATS_TestPoint   *dummyGetTPObj();
 
 // 系统中支持的测试表
 TEST_NameSlot    g_testPointTable[] =
@@ -42,8 +45,6 @@ TEST_NameSlot    g_testPointTable[] =
     NAME_SLOT("DummyTest", dummyGetTPObj),
 #endif
 };
-
-#define TEST_POINT_ELE_NUM      (sizeof(g_testPointTable)/sizeof(g_testPointTable[0]))
 
 
 

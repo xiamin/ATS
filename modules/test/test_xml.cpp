@@ -10,7 +10,7 @@
 #include "test_data.h"
 #include "log.h"
 
-#include "test_table.h"
+#include "test_support_table.h"
 
 #include "tinyxml.h"
 

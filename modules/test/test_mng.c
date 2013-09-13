@@ -23,6 +23,15 @@ extern "C" {
 static osa_list_t   testPointList = {&testPointList, &testPointList};
 
 
+// 测试点默认函数接口
+
+osa_err_t       defaultTestPointBegin(ATS_TestPoint *self); 
+ATS_TestResult  defaultTestPointStartTest(void *testCase);
+void            defaultTestPointSuccessFunc(ATS_TestPoint *self);
+void            defaultTestPointFailedFunc(ATS_TestPoint *self);
+void            defualtTestPointEnd(ATS_TestPoint *self);
+
+
 ATS_TestPoint   *ATS_TestPointFind(const char *name)
 {
     OSA_ASSERT(name != NULL);
@@ -46,7 +55,7 @@ ATS_TestPoint   *ATS_TestPointFind(const char *name)
 }
 
 
-osa_err_t   ATS_TestPointRegister(ATS_TestPoint *self)
+osa_err_t   ATS_TestPointRegister(const char *name, ATS_TestPointOps *ops)
 {
     if (!self)
     {
@@ -109,37 +118,63 @@ osa_err_t   ATS_TestStartAll()
     for (l=testPointList.next; l != &testPointList; l=l->next)
     {
         node = osa_list_entry(l, ATS_TestPoint, list);
-        
-        if (node->startTest)
-        {
-            // 重复测试次数等于testCse.caseNum;
-            for (i=0; i<node->testCaseBox.caseNum; i++)
-            {
-                ATS_LogInfo("Test case : %d\n", i+1);
-                
-                // 获取每一组测试用例数据的首地址
-                testCasePtr = node->testCaseBox.privData + i*node->testCaseBox.caseSize;
-                
-                node->result = node->startTest((void *)testCasePtr);
 
-                if (node->result == ATS_TEST_SUCCESS)
+        
+        if (!node->begin)
+        {
+            node->begin = defaultTestPointBegin;
+        }
+        if (!node->startTest)
+        {
+            node->startTest = defaultTestPointStartTest;
+        }
+        if (!node->successFunc)
+        {
+            node->successFunc = defaultTestPointSuccessFunc;
+        }
+        if (!node->failedFunc)
+        {
+            node->failedFunc = defaultTestPointFailedFunc;
+        }
+
+
+        // begin
+        if (node->begin(node) != OSA_ERR_OK)
+        {
+            break;
+        }
+
+        // 开始重复测试
+        // 重复测试次数等于testCse.caseNum;
+        for (i=0; i<node->testCaseBox.caseNum; i++)
+        {
+            ATS_LogInfo("Test case : %d\n", i+1);
+
+            // 获取每一组测试用例数据的首地址
+            testCasePtr = node->testCaseBox.privData + i*node->testCaseBox.caseSize;
+
+            node->result = node->startTest((void *)testCasePtr);
+
+            if (node->result == ATS_TEST_SUCCESS)
+            {
+                if (node->successFunc)
                 {
-                    if (node->successFunc)
-                    {
-                        node->successFunc(node);
-                    }
+                    node->successFunc(node);
                 }
-                else if (node->result == ATS_TEST_FAILED)
+            }
+            else if (node->result == ATS_TEST_FAILED)
+            {
+                if (node->failedFunc)
                 {
-                    if (node->failedFunc)
-                    {
-                        node->failedFunc(node);
-                    }
+                    node->failedFunc(node);
                 }
             }
         }
+
+        // end
+        node->end(node);
     }
-    
+
     return OSA_ERR_OK;
 }
 
@@ -150,11 +185,11 @@ osa_err_t   ATS_TestParseTemplete(const char *file)
     {
         return OSA_ERR_ERR;
     }
-    
+
     ATS_LogInfo("Start parse test templete file !\n");
 
     XML_ParseAll(file);
-    
+
     return OSA_ERR_OK;
 }
 
@@ -162,18 +197,18 @@ osa_err_t   ATS_TestParseTemplete(const char *file)
 ATS_TestPoint   *ATS_TestPointNew(const char *name)
 {
     ATS_TestPoint   *p = (ATS_TestPoint *)malloc(sizeof(ATS_TestPoint));
-    
+
     if (!p)
     {
         ATS_LogError("No memory !\n");
-        
+
         return NULL;
     }
-    
+
     memset(p, 0, sizeof(ATS_TestPoint));
-    
+
     strncpy(p->name, name, OSA_NAME_MAX-1);
-    
+
     return p;
 }
 
@@ -184,13 +219,13 @@ void    ATS_TestPointDelete(ATS_TestPoint *self)
     {
         return;
     }
-    
+
     free(self);
 }
 
 void    ATS_TestReleaseResource()
 {
-    
+
 }
 
 void    ATS_TestCaseBoxAssociate(ATS_TestCaseBox *self, osa_uint32_t num, osa_uint32_t size, void *priv)
@@ -198,6 +233,35 @@ void    ATS_TestCaseBoxAssociate(ATS_TestCaseBox *self, osa_uint32_t num, osa_ui
     self->caseNum   = num;
     self->caseSize  = size;
     self->privData  = priv;
+}
+
+
+
+
+osa_err_t       defaultTestPointBegin(ATS_TestPoint *self) 
+{
+    return OSA_ERR_OK;
+}
+
+
+ATS_TestResult  defaultTestPointStartTest(void *testCase)
+{
+    return ATS_TEST_SUCCESS;
+}
+
+
+void            defaultTestPointSuccessFunc(ATS_TestPoint *self)
+{
+}
+
+
+void            defaultTestPointFailedFunc(ATS_TestPoint *self)
+{
+}
+
+
+void            defualtTestPointEnd(ATS_TestPoint *self)
+{
 }
 
 
