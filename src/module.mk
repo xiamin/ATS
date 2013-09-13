@@ -5,7 +5,7 @@ LOCAL_PATH             :=$(call MyDir)
 LOCAL_MODULE           :=main
 LOCAL_MODULE_OWNER     :=
 
-LOCAL_SRC_FILES        :=conf.c module.c conf_xml.cpp cat_main.c
+LOCAL_SRC_FILES        :=conf.c module.c conf_xml.cpp ats_main.c
 
 #LOCAL_CORSS_COMPILE   :=
 #LOCAL_AR              :=$(LOCAL_CROSS_COMPILE)ar
@@ -20,7 +20,7 @@ LOCAL_LIBRARY_DIRS     :=
 LOCAL_EXPORT_HEADER_TO	 :=
 LOCAL_EXPORT_HEADER_DIRS :=
 
-LOCAL_STATIC_LIBRARIES :=libtest libtinyxml libgui libreport 
+LOCAL_STATIC_LIBRARIES :=libtest libtinyxml libgui libreport  liberp
 LOCAL_SHARED_LIBRARIES :=
 
 LOCAL_ARLIBS           :=

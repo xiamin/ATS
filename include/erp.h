@@ -19,5 +19,6 @@ struct _ATS_ERP_INTERFACE
 };
 
 
+osa_err_t   ATS_ErpModuleInit();
 
 #endif /* ATS_ERP_H_ */

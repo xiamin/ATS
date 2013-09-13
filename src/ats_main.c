@@ -40,7 +40,7 @@ int main(int argc, char **argv)
     ATS_GuiModuleInit();
     
     // 初始化ERP模块
-    //ATS_ErpModuleInit();
+    ATS_ErpModuleInit();
     
     
     ATS_ModuleInitAll(argc, argv);
